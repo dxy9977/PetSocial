@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/dp_15"
+    android:paddingEnd="@dimen/dp_15"
+    tools:context=".login.RegisterActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_80"
+        android:lineSpacingExtra="@dimen/dp_8"
+        android:text="您好,\n欢迎使用宠物社交"
+        android:textColor="#000"
+        android:textSize="@dimen/sp_22"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/register_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:background="@null"
+            android:hint="请输入手机号"
+            android:inputType="number"
+            android:singleLine="true"
+            android:textSize="@dimen/sp_15" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_5"
+            android:background="#cccccc" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/register_code"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textSize="@dimen/sp_15" />
+
+            <TextView
+                android:id="@+id/register_code_btn"
+                android:layout_width="@dimen/dp_75"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dp_5"
+                android:background="@drawable/login_code_bg"
+                android:gravity="center"
+                android:onClick="getPhoneCode"
+                android:text="获取验证码"
+                android:textColor="#000"
+                android:textSize="@dimen/sp_12" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_5"
+            android:background="#cccccc" />
+
+        <EditText
+            android:id="@+id/register_psd"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:background="@null"
+            android:hint="请输入初始密码"
+            android:inputType="textVisiblePassword"
+            android:singleLine="true"
+            android:textSize="@dimen/sp_15" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_5"
+            android:background="#cccccc" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/login_btn_bg"
+            android:onClick="btnRegister"
+            android:text="注册"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:onClick="btnBack"
+            android:padding="@dimen/dp_5"
+            android:text="已有账号，去登陆"
+            android:textColor="#000"
+            android:textSize="@dimen/sp_13" />
+    </LinearLayout>
+
+
+</LinearLayout>

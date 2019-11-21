@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context=".fragment.FriendFragment">
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ededed"
+        android:paddingTop="@dimen/dp_25">
+
+        <TextView
+            android:id="@+id/fragment_first_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/dp_10"
+            android:text="好友"
+            android:textColor="#000"
+            android:textSize="@dimen/sp_18" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:padding="@dimen/dp_10"
+            android:src="@drawable/add" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_below="@id/fragment_first_title"
+            android:layout_margin="@dimen/dp_8"
+            android:background="@drawable/edit_background"
+            android:focusable="false"
+            android:hint="搜索"
+            android:paddingStart="@dimen/dp_5" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/fragment_firend_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
