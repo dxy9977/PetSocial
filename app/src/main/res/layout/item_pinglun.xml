@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/item_pinglun_img"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:src="@drawable/dog"/>
+
+    <TextView
+        android:id="@+id/item_pinglun_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="东方不败"
+        android:textSize="20sp"
+        android:layout_toRightOf="@id/item_pinglun_img"
+        android:layout_marginTop="30dp"
+        android:textColor="#000"/>
+
+    <TextView
+        android:id="@+id/item_pinglun_context"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="这是我发布回复的内容"
+        android:textSize="20sp"
+        android:layout_toRightOf="@id/item_pinglun_img"
+        android:layout_below="@id/item_pinglun_img"
+        />
+
+    <View
+        android:id="@+id/item_pinglun_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_3"
+        android:layout_below="@id/item_pinglun_context"
+        android:background="#ededed"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/item_pinglun_context"/>
+
+    <TextView
+        android:id="@+id/item_pinglun_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2019-11-22"
+        android:layout_below="@id/item_pinglun_view"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_alignLeft="@id/item_pinglun_view"/>
+
+    <TextView
+
+        android:onClick="btnAnswer"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="回复"
+        android:layout_below="@id/item_pinglun_view"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        />
+
+    <View
+        android:id="@+id/item_pinglun_view1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_3"
+        android:layout_below="@id/item_pinglun_time"
+        android:background="#ededed"
+        android:layout_marginTop="10dp"
+        />
+
+
+</RelativeLayout>

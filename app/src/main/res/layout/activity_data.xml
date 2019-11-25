@@ -6,6 +6,7 @@
     android:background="#fff"
     tools:context=".ui.DataActivity">
 
+
     <ImageView
         android:onClick="btnBack"
         android:id="@+id/activity_data_back"

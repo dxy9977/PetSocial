@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.PhoneActivity"></activity>
+        <activity android:name=".ui.ContextActivity"></activity>
+        <activity android:name=".ui.ReleaseActivity" />
+        <activity android:name=".ui.AddFriend" />
+        <activity android:name=".login.PhoneActivity" />
         <activity android:name=".login.ForgetActivity" />
         <activity android:name=".ui.BaseActivity" />
         <activity android:name=".ui.DataActivity" />

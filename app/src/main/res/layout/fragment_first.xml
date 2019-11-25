@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:padding="@dimen/dp_10"
-            android:text="首页"
+            android:text="关注"
             android:textColor="#000"
             android:textSize="@dimen/sp_18" />
 

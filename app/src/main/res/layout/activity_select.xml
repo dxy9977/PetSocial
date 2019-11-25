@@ -19,34 +19,108 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="宠物社交"
+            android:text="兴趣选择"
             android:textColor="#fff"
             android:textSize="@dimen/sp_17" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/activity_select_title1"
+        android:layout_below="@+id/activity_select_title"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
+        android:text="准确选择兴趣可以帮助你更快找到志同道合的宠友哦"
+        android:textSize="@dimen/sp_13"
+        android:layout_centerHorizontal="true"
 
-        <ImageView
+        />
 
-            android:layout_width="88dp"
-            android:layout_height="88dp"
-            android:layout_gravity="center"
-            android:layout_margin="50dp"
-            android:clickable="true"
-            android:onClick="btnEnter"
-            android:src="@drawable/dog" />
+    <RelativeLayout
+        android:id="@+id/activity_select_imageL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_below="@+id/activity_select_title1"
+        android:layout_centerHorizontal="true"
+        >
 
-        <ImageView
-            android:layout_width="88dp"
-            android:layout_height="88dp"
-            android:layout_gravity="center"
-            android:layout_margin="50dp"
-            android:src="@drawable/cat" />
+        <RelativeLayout
+            android:id="@+id/dog_re"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_50"
+            >
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/activity_select_image1"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:layout_gravity="center"
+
+                android:clickable="true"
+                android:onClick="btnEnter"
+                android:src="@drawable/dog"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="汪~"
+                android:layout_marginTop="10dp"
+                android:layout_centerInParent="true"
+                android:layout_below="@id/activity_select_image1"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/cat_re"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_toRightOf="@id/dog_re">
+
+            <ImageView
+                android:id="@+id/activity_select_image2"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:layout_gravity="center"
+                android:src="@drawable/cat"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="喵~"
+                android:layout_marginTop="10dp"
+                android:layout_centerInParent="true"
+                android:layout_below="@id/activity_select_image2"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/activity_select_but1"
+        android:layout_below="@+id/activity_select_imageL"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全部都爱"
+        android:textSize="@dimen/sp_13"
+        android:layout_centerHorizontal="true"
+        android:background="#11000000"
+
+        />
+
+    <Button
+        android:id="@+id/activity_select_but2"
+        android:layout_below="@+id/activity_select_but1"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="选好了马上进入"
+        android:textSize="@dimen/sp_13"
+        android:layout_centerHorizontal="true"
+
+        android:background="#11000000"
+        />
 
 </RelativeLayout>

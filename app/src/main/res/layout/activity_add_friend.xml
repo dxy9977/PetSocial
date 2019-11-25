@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.AddFriend"
+    android:background="">
+
+    <TextView
+        android:id="@+id/activity_add_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_58"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/dp_10"
+        android:text="添加好友"
+        android:textColor="#000"
+        android:textSize="@dimen/sp_18"
+        android:gravity="center"/>
+    <View
+        android:id="@+id/activity_add_view"
+        android:layout_below="@+id/activity_add_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_15"
+        android:background="#ededed"/>
+
+    <EditText
+        android:id="@+id/activity_add_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="手机号/账号"
+        android:gravity="center_vertical"
+        android:layout_below="@id/activity_add_view"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginLeft="@dimen/dp_10"
+        />
+
+    <TextView
+        android:id="@+id/activity_add_tv_my"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的账号：qinyu"
+        android:layout_below="@+id/activity_add_et"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:layout_below="@+id/activity_add_tv_my"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

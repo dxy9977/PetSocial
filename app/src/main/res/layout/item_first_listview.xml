@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="80dp">
         <ImageView
             android:id="@+id/item_first_img"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
             android:src="@mipmap/ic_launcher"
             android:layout_gravity="center_vertical"
             android:layout_margin="10dp"
@@ -18,9 +18,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="111"
+            android:text="东方不败"
             android:textSize="20sp"
-            android:layout_marginLeft="10dp"/>
-    </LinearLayout>
+            android:layout_toRightOf="@id/item_first_img"
+            android:layout_alignTop="@id/item_first_img"
+            android:layout_marginLeft="10dp"
+            />
+
+        <TextView
+            android:id="@+id/item_first_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="是最近一个动态的标题"
+            android:textSize="@dimen/dp_16sp"
+            android:layout_toRightOf="@id/item_first_img"
+            android:layout_alignBottom="@id/item_first_img"
+            android:layout_marginLeft="10dp"
+            />
+
+        <TextView
+            android:id="@+id/item_first_ti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="2019-11-22"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_5"
+            />
+    </RelativeLayout>
 
 </LinearLayout>
