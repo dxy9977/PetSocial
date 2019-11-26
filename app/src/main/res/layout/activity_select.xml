@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SelectActivity">
+    tools:context=".ui.SelectActivity"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/activity_select_title"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_75"
-        android:background="#4b86fb"
-        android:paddingTop="@dimen/dp_25">
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -20,59 +16,56 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="兴趣选择"
-            android:textColor="#fff"
-            android:textSize="@dimen/sp_17" />
-    </RelativeLayout>
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_28"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_64"/>
+
 
     <TextView
         android:id="@+id/activity_select_title1"
         android:layout_below="@+id/activity_select_title"
-        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="准确选择兴趣可以帮助你更快找到志同道合的宠友哦"
-        android:textSize="@dimen/sp_13"
+        android:textSize="@dimen/sp_12"
         android:layout_centerHorizontal="true"
-
+        android:layout_gravity="center_horizontal"
+        android:textColor="#333333"
         />
 
     <RelativeLayout
         android:id="@+id/activity_select_imageL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_53"
         android:layout_below="@+id/activity_select_title1"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         >
-
         <RelativeLayout
             android:id="@+id/dog_re"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_50"
+            android:layout_marginRight="@dimen/dp_76"
             >
-
             <ImageView
                 android:id="@+id/activity_select_image1"
-                android:layout_width="88dp"
-                android:layout_height="88dp"
+                android:layout_width="@dimen/dp_53"
+                android:layout_height="@dimen/dp_49"
                 android:layout_gravity="center"
-
                 android:clickable="true"
                 android:onClick="btnEnter"
                 android:src="@drawable/dog"
                 />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="汪~"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="24dp"
                 android:layout_centerInParent="true"
                 android:layout_below="@id/activity_select_image1"/>
-
         </RelativeLayout>
-
         <RelativeLayout
             android:id="@+id/cat_re"
             android:layout_width="wrap_content"
@@ -82,8 +75,8 @@
 
             <ImageView
                 android:id="@+id/activity_select_image2"
-                android:layout_width="88dp"
-                android:layout_height="88dp"
+                android:layout_width="@dimen/dp_53"
+                android:layout_height="@dimen/dp_49"
                 android:layout_gravity="center"
                 android:src="@drawable/cat"
                 />
@@ -91,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="喵~"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="24dp"
                 android:layout_centerInParent="true"
                 android:layout_below="@id/activity_select_image2"/>
         </RelativeLayout>
@@ -100,27 +93,29 @@
     <Button
         android:id="@+id/activity_select_but1"
         android:layout_below="@+id/activity_select_imageL"
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_45"
+        android:layout_width="@dimen/dp_110"
+        android:layout_height="@dimen/dp_34"
         android:text="全部都爱"
-        android:textSize="@dimen/sp_13"
-        android:layout_centerHorizontal="true"
-        android:background="#11000000"
-
+        android:textColor="#C3C3C3"
+        android:textSize="@dimen/sp_15"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/login_code_bg"
         />
+
 
     <Button
         android:id="@+id/activity_select_but2"
         android:layout_below="@+id/activity_select_but1"
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/dp_32"
+        android:layout_marginRight="@dimen/dp_32"
+        android:layout_marginTop="@dimen/dp_52"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="选好了马上进入"
-        android:textSize="@dimen/sp_13"
+        android:textSize="@dimen/sp_15"
         android:layout_centerHorizontal="true"
-
-        android:background="#11000000"
+        android:background="#ffffd946"
         />
 
-</RelativeLayout>
+</LinearLayout>

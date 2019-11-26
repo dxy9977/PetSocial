@@ -39,7 +39,7 @@ public class FriendFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_friend, container, false);
         getData();
-        listView = view.findViewById(R.id.fragment_firend_listview);
+        //listView = view.findViewById(R.id.fragment_firend_listview);
 
 
         adapter = new FirstListAdapter(list, getContext());
