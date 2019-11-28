@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fff">
     <ImageView
         android:id="@+id/item_pinglun_img"
         android:layout_width="@dimen/dp_50"
@@ -33,9 +34,9 @@
     <View
         android:id="@+id/item_pinglun_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_3"
+        android:layout_height="@dimen/dp_1"
         android:layout_below="@id/item_pinglun_context"
-        android:background="#ededed"
+        android:background="#F4F4F4"
         android:layout_marginTop="10dp"
         android:layout_alignLeft="@id/item_pinglun_context"/>
 
@@ -64,9 +65,9 @@
     <View
         android:id="@+id/item_pinglun_view1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_3"
+        android:layout_height="@dimen/dp_1"
         android:layout_below="@id/item_pinglun_time"
-        android:background="#ededed"
+        android:background="#F4F4F4"
         android:layout_marginTop="10dp"
         />
 

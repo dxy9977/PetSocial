@@ -39,7 +39,7 @@ public class FirstListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_first_listview,parent,false);
+            convertView = inflater.inflate(R.layout.item_friend_listview,parent,false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }else {
