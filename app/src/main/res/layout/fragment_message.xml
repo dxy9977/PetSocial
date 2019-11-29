@@ -3,25 +3,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.MessageFragment">
+    tools:context=".fragment.MessageFragment"
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:id="@+id/activity_select_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_75"
-        android:background="#ededed"
-        android:paddingTop="@dimen/dp_25">
+        android:layout_height="@dimen/dp_67"
+        android:background="#ffffd946"
+        >
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_50"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:gravity="center"
             android:text="发现"
-            android:textColor="#000"
-            android:textSize="@dimen/sp_17" />
+            android:textColor="#333"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginBottom="12dp"/>
+        <ImageView
+            android:layout_width="@dimen/dp_8"
+            android:layout_height="@dimen/dp_14"
+            android:src="@drawable/back"
+            android:layout_marginTop="@dimen/dp_37"
+            android:layout_marginLeft="@dimen/dp_15"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="发布动态"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="@dimen/dp_15"/>
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="地区"
+            android:gravity="center"
+            android:textSize="@dimen/sp_15"
+            android:textColor="#333"
+            />
+        <TextView
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="分类"
+            android:gravity="center"
+            android:textSize="@dimen/sp_15"
+            android:textColor="#333"/>
+        <TextView
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="排序"
+            android:gravity="center"
+            android:textSize="@dimen/sp_15"
+            android:textColor="#333"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="#F4F4F4"/>
+
 
 </LinearLayout>

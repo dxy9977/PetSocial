@@ -1,122 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
+
+
+    <ImageView
+        android:layout_width="@dimen/dp_43"
+        android:layout_height="@dimen/dp_43"
+        android:id="@+id/item_message_icon"
+
+        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginTop="@dimen/dp_17"
+        android:src="@drawable/dog"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户昵称"
+        android:textColor="#333"
+        android:textSize="@dimen/sp_13"
+        android:layout_alignTop="@id/item_message_icon"
+        android:layout_toRightOf="@id/item_message_icon"
+        android:layout_marginLeft="@dimen/dp_2"/>
+
+    <TextView
+        android:id="@+id/item_message_tvzan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点赞量： 123"
+        android:textColor="#333"
+        android:textSize="@dimen/sp_13"
+        android:layout_alignBottom="@id/item_message_icon"
+        android:layout_toRightOf="@id/item_message_icon"
+        android:layout_marginLeft="@dimen/dp_2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="距离 ：123km"
+        android:textColor="#333"
+        android:textSize="@dimen/sp_13"
+        android:layout_alignBottom="@id/item_message_icon"
+        android:layout_toRightOf="@id/item_message_tvzan"
+        android:layout_marginLeft="@dimen/dp_22"/>
+
+    <TextView
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_24"
+        android:background="@drawable/tv_bg"
+        android:layout_alignParentRight="true"
+        android:text="狗狗"
+        android:gravity="center"
+        android:textSize="@dimen/sp_13"
+        android:layout_marginTop="@dimen/dp_12"/>
+
+    <View
+        android:id="@+id/item_message_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/dp_1"
+        android:background="#F4F4F4"
+        android:layout_below="@+id/item_message_icon"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginLeft="@dimen/dp_15"/>
+
+    <TextView
+        android:id="@+id/item_message_tvContext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:layout_below="@id/item_message_view"
+        android:text="尽快答复贺卡觉得数据库的合法可接受的和罚款及时答复哈康喀什酱豆腐哈空手道解放哈萨克的风景和ask记得发哈士大夫但是发射点发射点拉法基按时灯笼裤飞机啊受到了咖啡碱阿斯利康的飞机阿斯利康地方"
+        android:layout_marginTop="@dimen/dp_17"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"/>
+
+    <LinearLayout
+        android:id="@+id/item_message_lin1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80"
+        android:layout_below="@id/item_message_tvContext"
+        android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_17"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="#fab"
+        />
+    <LinearLayout
+        android:id="@+id/item_message_lin2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/item_message_lin1"
+        android:layout_marginTop="@dimen/dp_19"
+        android:gravity="center_vertical">
+
         <ImageView
-            android:id="@+id/fragment_first_icon"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:src="@drawable/cat"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginRight="@dimen/dp_10"
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_15"
+            android:src="@drawable/addr"
+            android:layout_marginLeft="@dimen/dp_15"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="宁波市鄞州区"
+            android:textColor="#999"
+            android:textSize="@dimen/sp_11"
+            android:layout_marginLeft="@dimen/dp_9"/>
+
+        <ImageView
+            android:layout_width="@dimen/dp_19"
+            android:layout_height="@dimen/dp_5"
+            android:src="@drawable/more"
+            android:layout_marginRight="18dp"
             />
-        <TextView
-            android:id="@+id/fragment_first_tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="好友名称"
-            android:layout_toRightOf="@id/fragment_first_icon"
-            android:layout_alignTop="@id/fragment_first_icon"
-            android:textColor="#800"
-            android:textSize="@dimen/sp_15"/>
-        <TextView
-            android:id="@+id/fragment_first_tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="22:22"
-            android:textSize="@dimen/sp_15"
-            android:layout_alignBottom="@id/fragment_first_icon"
-            android:layout_alignLeft="@id/fragment_first_tv_name"/>
+
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/item_message_re"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_message_lin2"
+        android:layout_marginTop="@dimen/dp_15"
+        >
+        <LinearLayout
+            android:id="@+id/iamgeview_lin"
+            android:layout_width="@dimen/dp_67"
+            android:layout_height="@dimen/dp_26"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:background="#fab"/>
 
         <TextView
-            android:id="@+id/fragment_first_tv_title"
+            android:id="@+id/item_message_zan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="这是动态的标题"
-            android:layout_below="@id/fragment_first_icon"
-            android:layout_marginTop="10dp"
-            android:layout_alignLeft="@id/fragment_first_icon"
-            android:textSize="@dimen/sp_15"
-            android:textColor="#800"/>
+            android:text="4 人赞"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iamgeview_lin"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:textSize="@dimen/sp_11"/>
 
         <TextView
-            android:id="@+id/fragment_first_tv_context"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fragment_first_tv_title"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_alignLeft="@id/fragment_first_icon"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:maxLines="2"
-            android:text="内容这是内容内容这是内容内容这是内容内容这是内容内容这是内容内容这是内容内容这是内容内容这是内容内容这是内容"
-            android:ellipsize="end"/>
-
-        <View
-            android:id="@+id/fragment_first_view"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_below="@id/fragment_first_tv_context"
-            android:background="#a00"
-            android:layout_margin="5dp"/>
-        <ImageView
-            android:id="@+id/fragment_first_locition"
-            android:layout_width="@dimen/dp_15"
-            android:layout_height="@dimen/dp_15"
-            android:src="@drawable/location"
-            android:layout_alignTop="@id/fragment_first_answer"
-            android:layout_alignLeft="@id/fragment_first_view"/>
-        <TextView
-            android:id="@+id/fragment_first_tv_location"
+            android:id="@+id/item_message_liulang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/fragment_first_locition"
-            android:text="这是显示定位的款款"
-            android:layout_toRightOf="@id/fragment_first_locition"/>
-        <TextView
-            android:id="@+id/fragment_first_tvZNum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5"
-            android:layout_below="@id/fragment_first_view"
-            android:layout_alignRight="@id/fragment_first_tv_context"/>
+            android:text="浏览人数: 1234"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_17"
+            android:textSize="@dimen/sp_11"/>
 
-        <ImageView
-            android:id="@+id/fragment_first_zan"
-            android:layout_width="@dimen/dp_15"
-            android:layout_height="@dimen/dp_15"
-            android:src="@drawable/zan"
-            android:layout_below="@id/fragment_first_view"
-            android:layout_toLeftOf="@id/fragment_first_tvZNum"
-            android:layout_marginRight="@dimen/dp_3"/>
-
-        <TextView
-            android:id="@+id/fragment_first_tvANum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10"
-            android:layout_below="@id/fragment_first_view"
-            android:layout_toLeftOf="@id/fragment_first_zan"
-            android:layout_marginRight="@dimen/dp_10"/>
-
-        <ImageView
-            android:id="@+id/fragment_first_answer"
-            android:layout_width="@dimen/dp_15"
-            android:layout_height="@dimen/dp_15"
-            android:src="@drawable/answer"
-            android:layout_below="@id/fragment_first_view"
-            android:layout_toLeftOf="@id/fragment_first_tvANum"
-            android:layout_marginRight="@dimen/dp_3"/>
-        <View
-            android:id="@+id/fragment_first_view1"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_20"
-            android:layout_below="@id/fragment_first_tvZNum"
-            android:background="#a00"
-            android:layout_margin="@dimen/dp_5"/>
     </RelativeLayout>
-
-</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:background="#fff6f6f6"
+        android:layout_below="@+id/item_message_re"
+        android:layout_marginTop="@dimen/dp_17"
+        />
+</RelativeLayout>

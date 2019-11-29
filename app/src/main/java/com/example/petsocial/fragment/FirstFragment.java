@@ -38,7 +38,7 @@ public class FirstFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_first,container,false);
         getData();
-        listView = view.findViewById(R.id.fragment_first_listview);
+        //listView = view.findViewById(R.id.fragment_first_listview);
         adapter = new FirstListAdapter(list,getContext());
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
