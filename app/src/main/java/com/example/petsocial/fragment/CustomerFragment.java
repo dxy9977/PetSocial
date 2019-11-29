@@ -64,7 +64,7 @@ public class CustomerFragment extends Fragment {
         imgPush.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"该功能暂未开放"，Toast.LENGTH_LONG);
+                Toast.makeText(getContext(),"该功能暂未开放",Toast.LENGTH_LONG);
             }
         });
         return inflate;
