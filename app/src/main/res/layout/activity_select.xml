@@ -55,7 +55,7 @@
                 android:layout_height="@dimen/dp_49"
                 android:layout_gravity="center"
                 android:clickable="true"
-                android:onClick="btnEnter"
+                android:onClick="btnDog"
                 android:src="@drawable/dog"
                 />
             <TextView
@@ -78,6 +78,7 @@
                 android:layout_width="@dimen/dp_53"
                 android:layout_height="@dimen/dp_49"
                 android:layout_gravity="center"
+                android:onClick="btnCat"
                 android:src="@drawable/cat"
                 />
             <TextView
@@ -97,6 +98,7 @@
         android:layout_width="@dimen/dp_110"
         android:layout_height="@dimen/dp_34"
         android:text="全部都爱"
+        android:onClick="btnAll"
         android:textColor="#C3C3C3"
         android:textSize="@dimen/sp_15"
         android:layout_gravity="center_horizontal"

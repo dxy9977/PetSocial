@@ -16,7 +16,19 @@ public class SelectActivity extends BaseActivity {
         setContentView(R.layout.activity_select);
     }
 
-    public void btnEnter(View view){
+    public void btnDog(View view){
+        Intent intent = new Intent();
+        intent.setClass(this,MainShowActivity.class);
+        this.startActivity(intent);
+    }
+
+    public void btnCat(View view){
+        Intent intent = new Intent();
+        intent.setClass(this,MainShowActivity.class);
+        this.startActivity(intent);
+    }
+
+    public void btnAll(View view){
         Intent intent = new Intent();
         intent.setClass(this,MainShowActivity.class);
         this.startActivity(intent);

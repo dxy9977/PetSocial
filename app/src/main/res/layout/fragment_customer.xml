@@ -190,6 +190,7 @@
                 android:gravity="center"
                 >
                 <ImageView
+                    android:id="@+id/fragment_my_home"
                     android:layout_width="@dimen/dp_16"
                     android:layout_height="@dimen/dp_20"
                     android:src="@drawable/home"/>
@@ -209,6 +210,7 @@
                 android:gravity="center"
                 >
                 <ImageView
+                    android:id="@+id/fragment_my_account"
                     android:layout_width="@dimen/dp_16"
                     android:layout_height="@dimen/dp_20"
                     android:src="@drawable/set"/>
@@ -228,6 +230,7 @@
                 android:gravity="center"
                 >
                 <ImageView
+                    android:id="@+id/fragment_my_set"
                     android:layout_width="@dimen/dp_16"
                     android:layout_height="@dimen/dp_20"
                     android:src="@drawable/yinshi"/>
@@ -247,6 +250,7 @@
                 android:gravity="center"
                 >
                 <ImageView
+                    android:id="@+id/fragment_my_push"
                     android:layout_width="@dimen/dp_16"
                     android:layout_height="@dimen/dp_20"
                     android:src="@drawable/tuiguang"/>

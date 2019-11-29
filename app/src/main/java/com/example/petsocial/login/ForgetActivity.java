@@ -1,6 +1,7 @@
 package com.example.petsocial.login;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -22,5 +23,9 @@ public class ForgetActivity extends BaseActivity {
     }
 
     public void btnForget(View view) {
+        Intent intent = new Intent();
+        intent.setClass(this,ResetActivity.class);
+        startActivity(intent);
+
     }
 }
