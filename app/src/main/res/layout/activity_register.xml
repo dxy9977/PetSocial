@@ -27,93 +27,140 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/register_name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:background="@null"
-            android:hint="请输入手机号"
-            android:inputType="number"
-            android:singleLine="true"
-            android:textSize="@dimen/sp_15" />
+            android:layout_height="@dimen/dp_49"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="手机号"
+                android:textColor="#333"
+                android:textSize="@dimen/sp_15" />
+
+            <EditText
+                android:id="@+id/register_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_20"
+                android:background="@null"
+                android:hint="请输入手机号"
+                android:inputType="number"
+                android:singleLine="true"
+                android:textColorHint="#E8E8E8"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_15" />
+        </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0_5"
-            android:background="#cccccc" />
+            android:background="#f4f4f4" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
+            android:layout_height="@dimen/dp_49"
+            android:layout_marginTop="@dimen/dp_20"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="验证码"
+                android:textColor="#333"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_15" />
 
             <EditText
                 android:id="@+id/register_code"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_20"
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="请输入验证码"
                 android:inputType="number"
                 android:singleLine="true"
+                android:textColorHint="#E8E8E8"
+                android:textCursorDrawable="@null"
                 android:textSize="@dimen/sp_15" />
 
-            <TextView
-                android:id="@+id/register_code_btn"
-                android:layout_width="@dimen/dp_75"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/dp_5"
+            <Button
+                android:id="@+id/register_getcode"
+                android:layout_width="@dimen/dp_91"
+                android:layout_height="@dimen/dp_30"
                 android:background="@drawable/login_code_bg"
+                android:clickable="true"
                 android:gravity="center"
-                android:onClick="getPhoneCode"
                 android:text="获取验证码"
-                android:textColor="#000"
+                android:textColor="#333333"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0_5"
-            android:background="#cccccc" />
+            android:background="#F4F4F4" />
 
-        <EditText
-            android:id="@+id/register_psd"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:background="@null"
-            android:hint="请输入初始密码"
-            android:inputType="textVisiblePassword"
-            android:singleLine="true"
-            android:textSize="@dimen/sp_15" />
+            android:layout_height="@dimen/dp_49"
+            android:layout_marginTop="@dimen/dp_20"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="密    码"
+                android:textColor="#333"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_15" />
+
+            <EditText
+                android:id="@+id/register_newpsd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请设置初始密码"
+                android:inputType="textVisiblePassword"
+                android:singleLine="true"
+                android:textColorHint="#E8E8E8"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_15" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0_5"
-            android:background="#cccccc" />
+            android:background="#F4F4F4" />
 
-        <LinearLayout
+
+        <CheckBox
+            android:id="@+id/register_cb"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_17"
-            android:layout_marginTop="@dimen/dp_10"
-            android:orientation="horizontal">
-            <CheckBox
-                android:id="@+id/activity_register_cb"
-                android:layout_width="@dimen/dp_11"
-                android:layout_height="@dimen/dp_11"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="勾选此项代表您同意我们的《用户协议》"/>
-        </LinearLayout>
-
+            android:layout_height="wrap_content"
+            android:text="勾选此项代表您同意我们的《用户协议》"
+            android:textColor="#C3C3C3"
+            android:textSize="@dimen/sp_12" />
 
 
         <Button
+            android:id="@+id/register_submit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:layout_marginTop="@dimen/dp_37"
             android:background="@drawable/login_btn_bg"
-            android:onClick="btnRegister"
             android:text="注册"
             android:textColor="#C3C3C3"
             android:textSize="@dimen/sp_15" />

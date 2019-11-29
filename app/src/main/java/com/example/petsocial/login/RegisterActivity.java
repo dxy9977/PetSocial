@@ -1,62 +1,165 @@
 package com.example.petsocial.login;
 
-import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.example.petsocial.login.MainActivity;
+import androidx.annotation.RequiresApi;
+
+import com.blankj.utilcode.util.RegexUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.petsocial.R;
-import com.example.petsocial.ui.BaseActivity;
+import com.example.petsocial.mvp.contract.RegisterContract;
+import com.example.petsocial.mvp.presenter.RegisterPresenter;
+import com.example.petsocial.util.base.BaseMvpActivity;
+import com.gyf.immersionbar.ImmersionBar;
 
-public class RegisterActivity extends BaseActivity {
-    private EditText name, code, psd;
-    private TextView codeBtn;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> implements RegisterContract.View, TextWatcher {
+
+    @BindView(R.id.register_phone)
+    EditText registerPhone;
+    @BindView(R.id.register_code)
+    EditText registerCode;
+    @BindView(R.id.register_getcode)
+    Button registerGetcode;
+    @BindView(R.id.register_newpsd)
+    EditText registerNewpsd;
+    @BindView(R.id.register_cb)
+    CheckBox registerCb;
+    @BindView(R.id.register_submit)
+    Button registerSubmit;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+    public int getLayoutId() {
+        return R.layout.activity_register;
+    }
 
-        name = findViewById(R.id.register_name);
-        code = findViewById(R.id.register_code);
-        psd = findViewById(R.id.register_psd);
-        codeBtn = findViewById(R.id.register_code_btn);
+    @Override
+    public void initView() {
+        mPresenter = new RegisterPresenter();
+        mPresenter.attachView(this);
+        ImmersionBar.with(this).statusBarDarkFont(true).init();
+        registerPhone.addTextChangedListener(this);
+        registerNewpsd.addTextChangedListener(this);
+        registerCode.addTextChangedListener(this);
+    }
+
+
+    public void btnBack(View view) {
+        finish();
+    }
+
+    @Override
+    public void showMessage(String meg) {
+
+    }
+
+    @Override
+    public String getPhone() {
+        return registerPhone.getText().toString().trim();
+    }
+
+    @Override
+    public String getCode() {
+        return registerCode.getText().toString().trim();
+    }
+
+    @Override
+    public String getNewPsd() {
+        return registerNewpsd.getText().toString().trim();
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+
     }
 
 
     private CountDownTimer cdTimer = new CountDownTimer(60300, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            codeBtn.setText(millisUntilFinished / 1000 + " s");
-            codeBtn.setClickable(false);
+            registerGetcode.setText(millisUntilFinished / 1000 + " s");
+            registerGetcode.setClickable(false);
         }
 
         @Override
         public void onFinish() {
-            codeBtn.setClickable(true);
-            codeBtn.setText("重新获取");
+            registerGetcode.setClickable(true);
+            registerGetcode.setText("重新获取");
         }
     };
 
 
+    @OnClick({R.id.register_getcode, R.id.register_submit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.register_getcode:
+                if (RegexUtils.isMobileExact(getPhone())) {
+                    cdTimer.start();
+                    //mPresenter.getCode();
+                } else {
+                    ToastUtils.showShort("手机号输入有误");
+                }
+                break;
+            case R.id.register_submit:
+                //mPresenter.register();
+                break;
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        if (TextUtils.isEmpty(getPhone()) || TextUtils.isEmpty(getCode()) || TextUtils.isEmpty(getNewPsd())) {
+            registerSubmit.setBackground(getDrawable(R.drawable.login_btn_bg));
+            registerSubmit.setTextColor(Color.parseColor("#c3c3c3"));
+            registerSubmit.setEnabled(false);
+        } else {
+            registerSubmit.setBackground(getDrawable(R.drawable.login_btn_bg1));
+            registerSubmit.setTextColor(Color.parseColor("#333333"));
+            registerSubmit.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
+    }
+
     @Override
     protected void onDestroy() {
-        cdTimer.onFinish();
         super.onDestroy();
-    }
-
-    public void getPhoneCode(View view) {
-        cdTimer.start();
-    }
-
-    public void btnRegister(View view) {
-        startActivity(new Intent(this, MainActivity.class));
-    }
-
-    public void btnBack(View view) {
-        finish();
+        if (cdTimer != null) {
+            cdTimer.cancel();
+            cdTimer = null;
+        }
     }
 }

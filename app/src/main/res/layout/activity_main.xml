@@ -12,49 +12,80 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_80"
+        android:layout_marginTop="@dimen/dp_100"
         android:lineSpacingExtra="@dimen/dp_8"
         android:text="您好,\n欢迎使用宠物社交"
         android:textColor="#000"
-        android:textSize="@dimen/sp_22"
+        android:textSize="@dimen/sp_28"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_47"
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/login_name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:background="@null"
-            android:hint="请输入账号"
-            android:singleLine="true"
-            android:textSize="@dimen/sp_15" />
+            android:layout_height="@dimen/dp_49"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="账号"
+                android:textColor="#333"
+                android:textSize="@dimen/sp_15" />
+
+            <EditText
+                android:id="@+id/login_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_35"
+                android:background="@null"
+                android:hint="请输入账号"
+                android:singleLine="true"
+                android:textColorHint="#E8E8E8"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_15" />
+        </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0_5"
-            android:background="#cccccc" />
+            android:background="#f4f4f4" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
+            android:layout_height="@dimen/dp_49"
+            android:layout_marginTop="@dimen/dp_20"
             android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="密码"
+                android:textColor="#333"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/sp_15" />
 
             <EditText
                 android:id="@+id/login_password"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_35"
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="请输入密码"
                 android:inputType="textPassword"
                 android:singleLine="true"
+                android:textColorHint="#E8E8E8"
+                android:textCursorDrawable="@null"
                 android:textSize="@dimen/sp_15" />
 
 
@@ -63,58 +94,63 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0_5"
-            android:background="#cccccc" />
+            android:background="#f4f4f4" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="忘记密码?"
-            android:layout_marginTop="@dimen/dp_10"
             android:layout_gravity="end"
-            android:textSize="@dimen/sp_10"
-            android:textColor="#BABABA"
             android:clickable="true"
-            android:onClick="forgetPsd"/>
+            android:onClick="forgetPsd"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="忘记密码?"
+            android:textColor="#BABABA"
+            android:textSize="@dimen/sp_10" />
 
         <Button
+            android:id="@+id/login_btton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
-            android:layout_marginTop="@dimen/dp_47"
+            android:layout_marginTop="@dimen/dp_37"
             android:background="@drawable/login_btn_bg"
+            android:enabled="false"
             android:onClick="btnLogin"
-            android:text="登陆"
+            android:text="登录"
             android:textColor="#C3C3C3"
             android:textSize="@dimen/sp_15" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_16"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/dp_6">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="btnPhoneLogin"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_10"
                 android:text="手机验证码登陆"
                 android:textColor="#BABABA"
                 android:textSize="@dimen/sp_12" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:clickable="true"
                 android:onClick="btnRegister"
-                android:padding="@dimen/dp_5"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_10"
                 android:text="注册"
                 android:textColor="#BABABA"
                 android:textSize="@dimen/sp_12" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 
