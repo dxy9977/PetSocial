@@ -13,6 +13,7 @@ public class MyApp extends Application {
         app = this;
         NetWorkManager.getInstance().init();
         CrashReport.initCrashReport(getApplicationContext(), "18bcaa06a9", false);
+        AccountDbUtil.getInstance().queryList();
     }
 
     public static MyApp getApp() {

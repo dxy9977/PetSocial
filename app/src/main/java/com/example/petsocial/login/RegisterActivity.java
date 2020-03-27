@@ -22,9 +22,14 @@ import com.example.petsocial.mvp.presenter.RegisterPresenter;
 import com.example.petsocial.util.base.BaseMvpActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> implements RegisterContract.View, TextWatcher {
 
@@ -41,6 +46,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     @BindView(R.id.register_submit)
     Button registerSubmit;
 
+    private Disposable disposable;
 
     @Override
     public int getLayoutId() {
@@ -98,34 +104,20 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     }
 
 
-    private CountDownTimer cdTimer = new CountDownTimer(60300, 1000) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-            registerGetcode.setText(millisUntilFinished / 1000 + " s");
-            registerGetcode.setClickable(false);
-        }
-
-        @Override
-        public void onFinish() {
-            registerGetcode.setClickable(true);
-            registerGetcode.setText("重新获取");
-        }
-    };
-
-
     @OnClick({R.id.register_getcode, R.id.register_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.register_getcode:
                 if (RegexUtils.isMobileExact(getPhone())) {
-                    cdTimer.start();
-                    //mPresenter.getCode();
+                    registerGetcode.setEnabled(false);
+                    mPresenter.getCode();
+                    setCodeStatus();
                 } else {
                     ToastUtils.showShort("手机号输入有误");
                 }
                 break;
             case R.id.register_submit:
-                //mPresenter.register();
+                mPresenter.register();
                 break;
         }
     }
@@ -154,12 +146,23 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
 
     }
 
+    private void setCodeStatus() {
+        disposable = Flowable.intervalRange(0, 60, 0, 1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(l ->
+                        registerGetcode.setText((60 - l) + " s")
+                )
+                .doOnComplete(() -> {
+                    registerGetcode.setEnabled(true);
+                    registerGetcode.setText("获取验证码");
+                }).subscribe();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (cdTimer != null) {
-            cdTimer.cancel();
-            cdTimer = null;
+        if (disposable != null) {
+            disposable.dispose();
         }
     }
 }

@@ -1,63 +1,100 @@
 package com.example.petsocial.adapter;
 
-import android.content.Context;
-import android.view.LayoutInflater;
+
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.blankj.utilcode.util.LogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.petsocial.R;
+import com.example.petsocial.common.AccountDbUtil;
+import com.example.petsocial.entity.AccountEntity;
+import com.example.petsocial.entity.NewsEntity;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class FirstListAdapter extends BaseAdapter {
-    private List<String> list = new ArrayList();
-    private LayoutInflater inflater;
-    public FirstListAdapter(List list, Context context){
-        this.list = list;
-        this.inflater = LayoutInflater.from(context);
-    }
-    @Override
-    public int getCount() {
-        return list.size();
+public class FirstListAdapter extends BaseQuickAdapter<NewsEntity, BaseViewHolder> {
+
+    public FirstListAdapter(@Nullable List<NewsEntity> data) {
+        super(data);
+        mLayoutResId = R.layout.item_first_listview;
+        openLoadAnimation(BaseQuickAdapter.ALPHAIN);
     }
 
     @Override
-    public Object getItem(int position) {
-        return list.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.item_friend_listview,parent,false);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        }else {
-            viewHolder = (ViewHolder) convertView.getTag();
-
+    protected void convert(@NonNull BaseViewHolder helper, NewsEntity item) {
+        if (AccountDbUtil.getInstance().isUserInfo(item.getCreateId())) {
+            AccountEntity userInfo = AccountDbUtil.getInstance().getUserInfo(item.getCreateId());
+            LogUtils.d("dxy:" + "getCreateId = " + item.getCreateId() + ",name = " + userInfo.getName());
+            helper.setText(R.id.item_name, userInfo.getName());
+            Glide.with(mContext)
+                    .load(userInfo.getAvatar())
+                    .placeholder(R.drawable.my_icon)
+                    .error(R.drawable.my_icon)
+                    //.apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                    .apply(new RequestOptions()
+                            .transforms(new CenterCrop(), new RoundedCorners(15)
+                            ))
+                    .into(((ImageView) helper.getView(R.id.item_first_icon)));
         }
-        viewHolder.imageView.setImageResource(R.drawable.cat);
-        viewHolder.textView.setText(list.get(position));
 
-        return convertView;
+        helper.setText(R.id.item_content, item.getContext());
+        helper.setText(R.id.item_type, item.getFlag() == 1 ? "狗狗" : "猫咪");
+        helper.setText(R.id.item_first_tvzan, "点赞数:" + item.getStar());
+        helper.addOnClickListener(R.id.item_img1);
+        helper.addOnClickListener(R.id.item_img2);
+        helper.addOnClickListener(R.id.item_img3);
+        helper.addOnClickListener(R.id.item_img4);
+        //helper.addOnClickListener(R.id.item_first_icon);
+        helper.setTag(R.id.item_img1, 0);
+        helper.setTag(R.id.item_img2, 1);
+        helper.setTag(R.id.item_img3, 2);
+        helper.setTag(R.id.item_img4, 3);
+        LinearLayout view1 = helper.getView(R.id.liner);
+        view1.setVisibility(View.GONE);
+
+        if (!TextUtils.isEmpty(item.getVideo())) {
+            view1.setVisibility(View.VISIBLE);
+            ImageView view = helper.getView(R.id.item_img1);
+            Glide.with(mContext)
+                    .load(item.getVideo())
+                    .into(view);
+        }
+
+        List<String> images = item.getImages();
+        if (images == null) return;
+        view1.setVisibility(View.VISIBLE);
+        for (int i = 0; i < images.size(); i++) {
+            ImageView view = helper.getView(getId(i));
+            Glide.with(mContext)
+                    .load(images.get(i))
+                    .into(view);
+        }
     }
 
-    class ViewHolder{
-        private ImageView imageView;
-        private TextView textView;
-        public ViewHolder(View view){
-            imageView = view.findViewById(R.id.item_first_img);
-            textView = view.findViewById(R.id.item_first_name);
+
+    private int getId(int i) {
+        switch (i) {
+            case 0:
+                return R.id.item_img1;
+            case 1:
+                return R.id.item_img2;
+            case 2:
+                return R.id.item_img3;
+            case 3:
+                return R.id.item_img4;
         }
+        return R.id.item_img4;
     }
 }

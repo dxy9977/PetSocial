@@ -17,6 +17,7 @@ public interface MainContract {
 
         void showMessage(String meg);
 
+        void success();
 
         String getName();
 

@@ -23,9 +23,14 @@ import com.example.petsocial.ui.SelectActivity;
 import com.example.petsocial.util.base.BaseMvpActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 public class PhoneActivity extends BaseMvpActivity<PhonePresenter> implements PhoneContract.View, TextWatcher {
 
@@ -38,6 +43,7 @@ public class PhoneActivity extends BaseMvpActivity<PhonePresenter> implements Ph
     @BindView(R.id.phone_submit)
     Button phoneSubmit;
 
+    private Disposable disposable;
 
     public void btnLogin(View view) {
         startActivity(new Intent(this, SelectActivity.class));
@@ -100,44 +106,41 @@ public class PhoneActivity extends BaseMvpActivity<PhonePresenter> implements Ph
     }
 
 
-    private CountDownTimer cdTimer = new CountDownTimer(60300, 1000) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-            phoneGetcode.setText(millisUntilFinished / 1000 + " s");
-            phoneGetcode.setClickable(false);
-        }
-
-        @Override
-        public void onFinish() {
-            phoneGetcode.setClickable(true);
-            phoneGetcode.setText("重新获取");
-        }
-    };
-
-
     @OnClick({R.id.phone_getcode, R.id.phone_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.phone_getcode:
                 if (RegexUtils.isMobileExact(getPhone())) {
-                    cdTimer.start();
-                    //mPresenter.getCode();
+                    setCodeStatus();
+                    phoneGetcode.setEnabled(false);
+                    mPresenter.getCode();
                 } else {
                     ToastUtils.showShort("手机号输入有误");
                 }
                 break;
             case R.id.phone_submit:
-                //mPresenter.checkLogin();
+                mPresenter.checkLogin();
                 break;
         }
+    }
+
+    private void setCodeStatus() {
+        disposable = Flowable.intervalRange(0, 60, 0, 1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(l ->
+                        phoneGetcode.setText((60 - l) + " s")
+                )
+                .doOnComplete(() -> {
+                    phoneGetcode.setEnabled(true);
+                    phoneGetcode.setText("获取验证码");
+                }).subscribe();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (cdTimer != null) {
-            cdTimer.cancel();
-            cdTimer = null;
+        if (disposable != null) {
+            disposable.dispose();
         }
     }
 

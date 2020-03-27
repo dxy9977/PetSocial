@@ -6,16 +6,23 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".common.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.SetPasswordActivity"></activity>
+        <activity android:name=".ui.ArticleActivity"></activity>
+        <activity android:name=".ui.VideoActivity" />
+        <activity android:name=".ui.SimpleDetailActivity" />
+        <activity android:name=".ui.SetPasswordActivity" />
         <activity android:name=".ui.WayActivity" />
         <activity android:name=".login.ResetActivity" />
         <activity android:name=".ui.ContextActivity" />
@@ -23,9 +30,10 @@
         <activity android:name=".ui.AddFriend" />
         <activity android:name=".login.PhoneActivity" />
         <activity android:name=".login.ForgetActivity" />
-        <activity android:name=".ui.BaseActivity" />
         <activity android:name=".ui.DataActivity" />
-        <activity android:name=".ui.MainShowActivity" />
+        <activity
+            android:name=".ui.MainShowActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".ui.SelectActivity" />
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".login.MainActivity">
@@ -34,7 +42,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- 适配华为（huawei）刘海屏 -->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" /> <!-- 适配小米（xiaomi）刘海屏 -->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
     </application>
 
 </manifest>

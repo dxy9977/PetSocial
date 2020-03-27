@@ -1,36 +1,106 @@
 package com.example.petsocial.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.petsocial.R;
+import com.example.petsocial.common.NetWorkManager;
+import com.example.petsocial.util.base.BaseActivity;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class SelectActivity extends BaseActivity {
 
+    @BindView(R.id.ck_1)
+    CheckBox ck1;
+    @BindView(R.id.ck_2)
+    CheckBox ck2;
+    @BindView(R.id.activity_select_but2)
+    Button submit;
+
+    private boolean choice1, choice2;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select);
+    public int getLayoutId() {
+        return R.layout.activity_select;
     }
 
-    public void btnDog(View view){
-        Intent intent = new Intent();
-        intent.setClass(this,MainShowActivity.class);
-        this.startActivity(intent);
+    @Override
+    public void initView() {
+        //String credential = Credentials.basic("jesse", "password1");
+        ck1.setOnCheckedChangeListener((button, b) -> {
+            choice1 = b;
+            if (!choice1 && !choice2) {
+                submit.setEnabled(false);
+            } else {
+                submit.setEnabled(true);
+            }
+        });
+        ck2.setOnCheckedChangeListener((button, b) -> {
+            choice2 = b;
+            if (!choice1 && !choice2) {
+                submit.setEnabled(false);
+            } else {
+                submit.setEnabled(true);
+            }
+        });
     }
 
-    public void btnCat(View view){
-        Intent intent = new Intent();
-        intent.setClass(this,MainShowActivity.class);
-        this.startActivity(intent);
+    public void btnAll(View view) {
+        ck1.setChecked(true);
+        ck2.setChecked(true);
     }
 
-    public void btnAll(View view){
-        Intent intent = new Intent();
-        intent.setClass(this,MainShowActivity.class);
-        this.startActivity(intent);
+    public void submit(View view) {
+        loadData();
+
+    }
+
+
+    public void loadData() {
+        showDialog();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("flag", getType());
+        RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
+
+        NetWorkManager.getServerApi().modifyAccount(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(body -> {
+                            if (body.isSuccess()) {
+                                startActivity(new Intent(this, MainShowActivity.class));
+                                finish();
+                            } else {
+                                ToastUtils.showShort(body.getMessage());
+                            }
+                            closeDialog();
+                        }, throwable ->
+                        {
+                            ToastUtils.showShort(throwable.getMessage());
+                            closeDialog();
+                        }
+                );
+    }
+
+
+    private int getType() {
+        if (choice1) {
+            return choice2 ? 3 : 2;
+        }
+        return 1;
     }
 }

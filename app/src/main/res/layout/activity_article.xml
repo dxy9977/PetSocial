@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ArticleActivity">
+
+    <RelativeLayout
+        android:id="@+id/activity_context_re"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_67"
+        android:background="#FFD946">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_33"
+            android:text="文章内容"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_16" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentBottom="true"
+            android:onClick="back"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
+    </RelativeLayout>
+
+    <us.feras.mdv.MarkdownView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/markdownView" />
+</LinearLayout>

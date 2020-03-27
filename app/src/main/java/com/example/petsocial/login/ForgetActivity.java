@@ -23,9 +23,16 @@ import com.example.petsocial.mvp.presenter.ForgetPresenter;
 import com.example.petsocial.util.base.BaseMvpActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 public class ForgetActivity extends BaseMvpActivity<ForgetPresenter> implements ForgetContract.View, TextWatcher {
 
@@ -40,6 +47,7 @@ public class ForgetActivity extends BaseMvpActivity<ForgetPresenter> implements 
     @BindView(R.id.forget_newpsd)
     EditText forgetNewpsd;
 
+    private Disposable disposable;
 
     @Override
     public int getLayoutId() {
@@ -101,7 +109,9 @@ public class ForgetActivity extends BaseMvpActivity<ForgetPresenter> implements 
         switch (view.getId()) {
             case R.id.forget_getcode:
                 if (RegexUtils.isMobileExact(getPhone())) {
-                    cdTimer.start();
+                    //cdTimer.start();
+                    setCodeStatus();
+                    forgetGetcode.setEnabled(false);
                     //mPresenter.getCode();
                 } else {
                     ToastUtils.showShort("手机号输入有误");
@@ -140,27 +150,23 @@ public class ForgetActivity extends BaseMvpActivity<ForgetPresenter> implements 
     }
 
 
-    private CountDownTimer cdTimer = new CountDownTimer(60300, 1000) {
-        @Override
-        public void onTick(long millisUntilFinished) {
-            //tvCount.setText((millisUntilFinished / 1000) + " s");
-            forgetGetcode.setText(millisUntilFinished / 1000 + " s");
-            forgetGetcode.setEnabled(false);
-        }
-
-        @Override
-        public void onFinish() {
-            forgetGetcode.setEnabled(true);
-            forgetGetcode.setText("获取验证码");
-        }
-    };
+    private void setCodeStatus() {
+        disposable = Flowable.intervalRange(0, 60, 0, 1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(l ->
+                        forgetGetcode.setText((60 - l) + " s")
+                )
+                .doOnComplete(() -> {
+                    forgetGetcode.setEnabled(true);
+                    forgetGetcode.setText("获取验证码");
+                }).subscribe();
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (cdTimer != null) {
-            cdTimer.cancel();
-            cdTimer = null;
+        if (disposable != null) {
+            disposable.dispose();
         }
     }
 

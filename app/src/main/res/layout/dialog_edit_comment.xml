@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="horizontal"
+    android:padding="@dimen/dp_8">
+
+    <EditText
+        android:id="@+id/editCommentDialog"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:background="#f2f2f2"
+        android:hint="我也说一句…"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:paddingStart="@dimen/dp_8"
+        android:singleLine="true"
+        android:textSize="@dimen/sp_14" />
+
+    <TextView
+        android:id="@+id/tvSendCommentDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/dp_10"
+        android:text="发送"
+        android:textColor="@color/color"
+        android:textSize="@dimen/sp_16" />
+</LinearLayout>

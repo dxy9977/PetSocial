@@ -16,6 +16,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.example.petsocial.R;
 import com.example.petsocial.mvp.contract.MainContract;
 import com.example.petsocial.mvp.presenter.MainPresenter;
+import com.example.petsocial.ui.MainShowActivity;
+import com.example.petsocial.ui.SelectActivity;
 import com.example.petsocial.util.base.BaseMvpActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -46,8 +48,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
 
 
     public void btnLogin(View view) {
-        //mPresenter.checkLogin();
-        //startActivity(new Intent(this, SelectActivity.class));
+        mPresenter.checkLogin();
     }
 
     public void btnRegister(View view) {
@@ -75,12 +76,12 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
 
     @Override
     public void showLoading() {
-
+        showDialog();
     }
 
     @Override
     public void hideLoading() {
-
+        closeDialog();
     }
 
     @Override
@@ -91,6 +92,12 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
     @Override
     public void showMessage(String meg) {
         ToastUtils.showShort(meg);
+    }
+
+    @Override
+    public void success() {
+        startActivity(new Intent(this, MainShowActivity.class));
+        finish();
     }
 
     @Override

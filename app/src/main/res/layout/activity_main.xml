@@ -41,6 +41,7 @@
                 android:textSize="@dimen/sp_15" />
 
             <EditText
+                android:text=""
                 android:id="@+id/login_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

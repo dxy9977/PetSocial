@@ -11,66 +11,82 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_67"
         android:background="#FFD946"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/fragment_firend_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
             android:text="好友"
             android:textColor="#333333"
-            android:textSize="@dimen/sp_16"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="12dp"
-            />
+            android:textSize="@dimen/sp_16" />
+
         <TextView
             android:id="@+id/fragment_firend_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="添加好友"
-            android:textColor="#333333"
-            android:textSize="@dimen/sp_14"
             android:layout_alignBottom="@id/fragment_firend_title"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_15"
-            />
+            android:text="添加好友"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_14" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_111"
         android:background="#FFD946">
+
         <EditText
             android:id="@+id/fragment_friend_et"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_33"
-            android:background="@drawable/et_sourch"
             android:layout_marginLeft="@dimen/dp_13"
             android:layout_marginRight="@dimen/dp_12"
-            android:hint="搜索"
-            android:gravity="center"/>
+            android:background="@drawable/et_sourch"
+            android:gravity="center"
+            android:hint="搜索" />
 
         <ImageView
             android:id="@+id/fragment_friend_img"
             android:layout_width="@dimen/dp_38"
             android:layout_height="@dimen/dp_38"
             android:layout_below="@id/fragment_friend_et"
-            android:src="@drawable/dog"
+            android:layout_marginLeft="@dimen/dp_18"
             android:layout_marginTop="@dimen/dp_18"
-            android:layout_marginLeft="@dimen/dp_18"/>
+            android:src="@drawable/firend" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="新的朋友"
             android:layout_below="@id/fragment_friend_et"
+            android:layout_marginLeft="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_25"
             android:layout_toRightOf="@id/fragment_friend_img"
-            android:layout_marginLeft="@dimen/dp_16"
-            android:textSize="@dimen/sp_16"
-            android:textColor="#333"/>
+            android:text="新的朋友"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_16" />
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.example.petsocial.util.view.LetterIndexView
+            android:id="@+id/letter"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,31 +1,31 @@
 package com.example.petsocial.fragment;
 
 
-import android.content.Intent;
-import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.example.petsocial.R;
-import com.example.petsocial.adapter.FirstListAdapter;
-import com.example.petsocial.ui.DataActivity;
+import com.example.petsocial.adapter.FriendAdapter;
+import com.example.petsocial.util.base.BaseFragment;
+import com.example.petsocial.util.view.RecyclerViewSpacesItemDecoration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FriendFragment extends Fragment {
-    private ListView listView;
-    FirstListAdapter adapter;
+public class FriendFragment extends BaseFragment {
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    private FriendAdapter adapter;
     private List<String> list = new ArrayList<>();
 
     public FriendFragment() {
@@ -34,29 +34,32 @@ public class FriendFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_friend, container, false);
+    protected void initView(View view) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        HashMap<String, Integer> stringIntegerHashMap = new HashMap<>();
+        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.BOTTOM_DECORATION, 1);//底部间距
+        recyclerView.addItemDecoration(new RecyclerViewSpacesItemDecoration(stringIntegerHashMap));
+
+        adapter = new FriendAdapter();
+        recyclerView.setAdapter(adapter);
         getData();
-        //listView = view.findViewById(R.id.fragment_firend_listview);
 
+        //new IndexControl(recyclerView,)
+    }
 
-        adapter = new FirstListAdapter(list, getContext());
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent(getContext(), DataActivity.class));
-            }
-        });
-        return view;
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_friend;
     }
 
     public void getData() {
         for (int i = 0; i <= 100; i++) {
             list.add("李" + i + "蛋");
         }
+        ToastUtils.showShort(list.size());
+        adapter.addData(list);
+        adapter.notifyDataSetChanged();
     }
 
 }

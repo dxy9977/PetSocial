@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -14,6 +14,7 @@ android {
             // 设置支持的SO库架构
             abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
+        multiDexEnabled true
 
     }
     compileOptions {
@@ -26,6 +27,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+greendao {
+    schemaVersion 1 //指定数据库schema版本号，迁移等操作会用到
+    daoPackage 'com.example.petsocial.greendao'//通过gradle插件生成的数据库相关文件  xxx.xxx.xx 一般填写包名
+    targetGenDir 'src/main/java'  //自定义生成数据库文件的目录
 }
 
 dependencies {
@@ -59,8 +69,22 @@ dependencies {
     //
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+    //dialog
+    implementation 'com.github.ForgetAll:LoadingDialog:v1.1.2'
+    //图片显示
+    implementation 'com.github.wanglu1209:PhotoViewer:0.50'
+    //选择图片
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.3.9'
+
+
+    implementation 'com.google.android.exoplayer:exoplayer:2.11.0'
+    implementation 'org.greenrobot:greendao:3.2.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    implementation 'com.lxj:xpopup:1.8.10-x'
+    implementation "com.google.android.material:material:1.0.0"
+    implementation 'us.feras.mdv:markdownview:1.1.0'
 }

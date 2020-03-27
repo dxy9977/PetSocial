@@ -15,6 +15,8 @@ import com.example.petsocial.fragment.CustomerFragment;
 import com.example.petsocial.fragment.FirstFragment;
 import com.example.petsocial.fragment.FriendFragment;
 import com.example.petsocial.fragment.MessageFragment;
+import com.example.petsocial.util.base.BaseActivity;
+import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.widget.AlphaIndicator;
 
 import java.util.ArrayList;
@@ -24,16 +26,22 @@ public class MainShowActivity extends BaseActivity {
     private List<Fragment> list = new ArrayList<>();
     private ViewPager viewPager;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_show);
+    public int getLayoutId() {
+        return R.layout.activity_main_show;
+    }
+
+    @Override
+    public void initView() {
+        ImmersionBar.with(this).statusBarDarkFont(true).init();
         list.add(new FirstFragment());
         list.add(new FriendFragment());
         list.add(new MessageFragment());
         list.add(new CustomerFragment());
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new MainAdapter(getSupportFragmentManager()));
+        viewPager.setOffscreenPageLimit(3);
         AlphaIndicator alphaIndicator = findViewById(R.id.alphaIndicator);
         alphaIndicator.setViewPager(viewPager);
     }

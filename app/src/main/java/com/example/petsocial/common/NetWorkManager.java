@@ -1,17 +1,15 @@
 package com.example.petsocial.common;
 
-import java.io.IOException;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetWorkManager {
-    String BASE_URL = "http://api.heclouds.com/devices/";
+    public static String BASE_URL = "http://47.99.60.167:8080/";
+    public static String basic = "OFAKFX2aGYMk1jqNn7hMg5mqXUF0sQWuqa_E8gLUudc";
     private static NetWorkManager mInstance;
     private static Retrofit retrofit;
     private static volatile ServerApi request = null;
@@ -28,21 +26,20 @@ public class NetWorkManager {
     }
 
     /**
+     * Route route, Response response
      * 初始化必要对象和参数
      * "api-key: myBblGC5xliTlK01a7C7bDT4fig=",
      * "Content-Type: application/json"
      */
     public void init() {
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request().newBuilder()
-                        //.addHeader("api-key", "myBblGC5xliTlK01a7C7bDT4fig=")
-                        //.addHeader("Content-Type", "application/json")
-                        .build();
-
-                return chain.proceed(request);
-            }
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor((chain) -> {
+            Request request = chain.request().newBuilder()
+                    //.addHeader("api-key", "myBblGC5xliTlK01a7C7bDT4fig=")
+                    //.addHeader("Content-Type", "application/json")
+                    .build();
+            return chain.proceed(request);
+        }).authenticator((route, response) -> {
+            return response.request().newBuilder().header("Authorization", basic).build();
         }).build();
 
 
