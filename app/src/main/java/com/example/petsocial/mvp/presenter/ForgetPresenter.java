@@ -23,12 +23,7 @@ public class ForgetPresenter extends BasePresenter<ForgetContract.View> implemen
 
 
     public void getCode() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("sign", "");
-        map.put("timestamp", 0);
-        map.put("username", mView.getCode());
-        RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
-        NetWorkManager.getServerApi().getCode(requestBody)
+        NetWorkManager.getServerApi().sendValidate(mView.getCode())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(body -> {
@@ -45,11 +40,11 @@ public class ForgetPresenter extends BasePresenter<ForgetContract.View> implemen
             return;
         }
         HashMap<String, Object> map = new HashMap<>();
-        map.put("captcha", mView.getCode());
-        map.put("password", newPsd);
-        map.put("username", mView.getCode());
+        map.put("phone", mView.getCode());
+        map.put("uid", "");
+        map.put("password", mView.getCode());
         RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
-        NetWorkManager.getServerApi().resetPsd(requestBody)
+        NetWorkManager.getServerApi().updatePassword(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(body -> {

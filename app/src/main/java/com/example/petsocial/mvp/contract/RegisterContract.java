@@ -17,6 +17,7 @@ public interface RegisterContract {
 
         void showMessage(String meg);
 
+        void onSucess();
 
         String getPhone();
 

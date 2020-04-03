@@ -1,12 +1,15 @@
 package com.example.petsocial.mvp.presenter;
 
 
+import com.blankj.utilcode.util.CacheDiskUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.example.petsocial.common.MyApp;
 import com.example.petsocial.common.NetWorkManager;
-import com.example.petsocial.mvp.contract.ForgetContract;
 import com.example.petsocial.mvp.contract.RegisterContract;
 import com.example.petsocial.util.base.BasePresenter;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -25,16 +28,10 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
 
 
     public void getCode() {
-        LogUtils.d("dxy", "sendValidate2");
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("phone", mView.getPhone());
-        map.put("password", mView.getNewPsd());
-        RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
-        NetWorkManager.getServerApi().sendValidate1(requestBody)
+        NetWorkManager.getServerApi().sendValidate(mView.getPhone())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(body -> {
-                            //mView.onSuccess(body.getData().getData());
                             LogUtils.d("dxy", body.string());
                         }, throwable ->
                                 ToastUtils.showShort(throwable.getMessage())
@@ -55,9 +52,46 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(body -> {
-                            //mView.onSuccess(body.getData().getData());
+                            String string = body.string();
+                            LogUtils.d("dxy", string);
+                            JSONObject jb = new JSONObject(string);
+
+                            LogUtils.d("dxy", 222);
+                            if (jb.getBoolean("success")) {
+                                login();
+                            } else {
+                                ToastUtils.showShort(jb.getString("message"));
+                            }
                         }, throwable ->
                                 ToastUtils.showShort(throwable.getMessage())
+                );
+    }
+
+    private void login() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("phone", mView.getPhone());
+        map.put("password", mView.getNewPsd());
+        RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
+
+        NetWorkManager.getServerApi().login1(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(body -> {
+                            if (body.isSuccess()) {
+                                NetWorkManager.basic = body.getMessage();
+                                LogUtils.d("dxy", NetWorkManager.basic);
+                                NetWorkManager.getInstance().init();
+                                SPUtils.getInstance("user").put("login", true);
+                                CacheDiskUtils.getInstance().put("test", body);
+                                MyApp.getApp().setBody(body);
+                                mView.onSucess();
+                            } else {
+                                ToastUtils.showShort(body.getMessage());
+                            }
+                        }, throwable ->
+                        {
+                            ToastUtils.showShort(throwable.getMessage());
+                        }
                 );
     }
 

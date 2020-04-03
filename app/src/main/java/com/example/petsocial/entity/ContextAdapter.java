@@ -10,24 +10,24 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.petsocial.R;
+import com.example.petsocial.common.NetWorkManager;
 
 import java.util.List;
 
 public class ContextAdapter extends BaseQuickAdapter<CommentEntity.DataBean, BaseViewHolder> {
     public ContextAdapter(@Nullable List<CommentEntity.DataBean> data) {
-        super(data);
-        mLayoutResId = R.layout.item_comment;
+        super(R.layout.item_comment, data);
     }
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, CommentEntity.DataBean item) {
-        helper.setText(R.id.item_name, item.getCreator().getName());
-        helper.setText(R.id.item_content, item.getConetext());
-        helper.setText(R.id.item_date, item.getCreateAt());
-        Glide.with(mContext)
-                .load(item.getCreator().getAvatar())
+        helper.setText(R.id.item_name, item.getUser().getUsername());
+        helper.setText(R.id.item_content, item.getNote());
+        helper.setText(R.id.item_date, item.getComment_time());
+        Glide.with(getContext())
+                .load(NetWorkManager.BASE_URL + item.getUser().getHead_img_src())
                 .placeholder(R.drawable.my_icon)
                 .error(R.drawable.my_icon)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))

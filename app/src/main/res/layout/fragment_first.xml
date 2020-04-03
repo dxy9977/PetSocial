@@ -25,7 +25,7 @@
     </RelativeLayout>
 
 
-    <RelativeLayout
+<!--    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_first_lin"
@@ -54,7 +54,7 @@
             android:text="换一批"
             android:textColor="#333"
             android:textSize="@dimen/sp_13" />
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

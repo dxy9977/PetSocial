@@ -4,14 +4,13 @@ import java.util.List;
 
 public class CommentEntity {
 
+
     /**
-     * success : false
-     * code : 0
-     * data : [{"id":1,"conetext":"哈哈哈哈","createId":1,"newsId":1,"fromId":0,"star":0,"createAt":"2019-12-17T20:40:40+08:00","Creator":{"id":1,"name":"富豪鸡","avatar":"https://api.atatakai.cn/api/v1/public/file/1576417420058988177.jpeg"},"From":{"id":0,"name":"","avatar":""}},{"id":2,"conetext":"嘻嘻嘻","createId":1,"newsId":1,"fromId":0,"star":0,"createAt":"2019-12-17T20:40:55+08:00","Creator":{"id":1,"name":"富豪鸡","avatar":"https://api.atatakai.cn/api/v1/public/file/1576417420058988177.jpeg"},"From":{"id":0,"name":"","avatar":""}}]
+     * success : true
+     * data : [{"id":1,"moments_id":5,"uid":6,"note":"啊啊啊可口可乐了了","comment_time":"2020-04-02T07:44:20.000+0000","user":{"uid":null,"username":"我是傅豪杰！！！","password":null,"phone":null,"interest":null,"regist_time":null,"ps_note":null,"privacy_status":null,"head_img_src":"img/head/CB6FA86FD122403A9D870331E2181D57_IMG_4E6686A706B16E4F754D4DA317E58F.jpeg","integral":null,"status":null,"qq_num":null,"wechat_num":null,"address":null}},{"id":2,"moments_id":5,"uid":6,"note":"5555","comment_time":"2020-04-02T08:19:35.000+0000","user":{"uid":null,"username":"我是傅豪杰！！！","password":null,"phone":null,"interest":null,"regist_time":null,"ps_note":null,"privacy_status":null,"head_img_src":"img/head/CB6FA86FD122403A9D870331E2181D57_IMG_4E6686A706B16E4F754D4DA317E58F.jpeg","integral":null,"status":null,"qq_num":null,"wechat_num":null,"address":null}}]
      */
 
     private boolean success;
-    private int code;
     private List<DataBean> data;
 
     public boolean isSuccess() {
@@ -20,14 +19,6 @@ public class CommentEntity {
 
     public void setSuccess(boolean success) {
         this.success = success;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
     }
 
     public List<DataBean> getData() {
@@ -41,25 +32,19 @@ public class CommentEntity {
     public static class DataBean {
         /**
          * id : 1
-         * conetext : 哈哈哈哈
-         * createId : 1
-         * newsId : 1
-         * fromId : 0
-         * star : 0
-         * createAt : 2019-12-17T20:40:40+08:00
-         * Creator : {"id":1,"name":"富豪鸡","avatar":"https://api.atatakai.cn/api/v1/public/file/1576417420058988177.jpeg"}
-         * From : {"id":0,"name":"","avatar":""}
+         * moments_id : 5
+         * uid : 6
+         * note : 啊啊啊可口可乐了了
+         * comment_time : 2020-04-02T07:44:20.000+0000
+         * user : {"uid":null,"username":"我是傅豪杰！！！","password":null,"phone":null,"interest":null,"regist_time":null,"ps_note":null,"privacy_status":null,"head_img_src":"img/head/CB6FA86FD122403A9D870331E2181D57_IMG_4E6686A706B16E4F754D4DA317E58F.jpeg","integral":null,"status":null,"qq_num":null,"wechat_num":null,"address":null}
          */
 
         private int id;
-        private String conetext;
-        private int createId;
-        private int newsId;
-        private int fromId;
-        private int star;
-        private String createAt;
-        private CreatorBean Creator;
-        private FromBean From;
+        private int moments_id;
+        private int uid;
+        private String note;
+        private String comment_time;
+        private UserBean user;
 
         public int getId() {
             return id;
@@ -69,139 +54,189 @@ public class CommentEntity {
             this.id = id;
         }
 
-        public String getConetext() {
-            return conetext;
+        public int getMoments_id() {
+            return moments_id;
         }
 
-        public void setConetext(String conetext) {
-            this.conetext = conetext;
+        public void setMoments_id(int moments_id) {
+            this.moments_id = moments_id;
         }
 
-        public int getCreateId() {
-            return createId;
+        public int getUid() {
+            return uid;
         }
 
-        public void setCreateId(int createId) {
-            this.createId = createId;
+        public void setUid(int uid) {
+            this.uid = uid;
         }
 
-        public int getNewsId() {
-            return newsId;
+        public String getNote() {
+            return note;
         }
 
-        public void setNewsId(int newsId) {
-            this.newsId = newsId;
+        public void setNote(String note) {
+            this.note = note;
         }
 
-        public int getFromId() {
-            return fromId;
+        public String getComment_time() {
+            return comment_time;
         }
 
-        public void setFromId(int fromId) {
-            this.fromId = fromId;
+        public void setComment_time(String comment_time) {
+            this.comment_time = comment_time;
         }
 
-        public int getStar() {
-            return star;
+        public UserBean getUser() {
+            return user;
         }
 
-        public void setStar(int star) {
-            this.star = star;
+        public void setUser(UserBean user) {
+            this.user = user;
         }
 
-        public String getCreateAt() {
-            return createAt;
-        }
-
-        public void setCreateAt(String createAt) {
-            this.createAt = createAt;
-        }
-
-        public CreatorBean getCreator() {
-            return Creator;
-        }
-
-        public void setCreator(CreatorBean Creator) {
-            this.Creator = Creator;
-        }
-
-        public FromBean getFrom() {
-            return From;
-        }
-
-        public void setFrom(FromBean From) {
-            this.From = From;
-        }
-
-        public static class CreatorBean {
+        public static class UserBean {
             /**
-             * id : 1
-             * name : 富豪鸡
-             * avatar : https://api.atatakai.cn/api/v1/public/file/1576417420058988177.jpeg
+             * uid : null
+             * username : 我是傅豪杰！！！
+             * password : null
+             * phone : null
+             * interest : null
+             * regist_time : null
+             * ps_note : null
+             * privacy_status : null
+             * head_img_src : img/head/CB6FA86FD122403A9D870331E2181D57_IMG_4E6686A706B16E4F754D4DA317E58F.jpeg
+             * integral : null
+             * status : null
+             * qq_num : null
+             * wechat_num : null
+             * address : null
              */
 
-            private int id;
-            private String name;
-            private String avatar;
+            private String uid;
+            private String username;
+            private String password;
+            private String phone;
+            private String interest;
+            private String regist_time;
+            private String ps_note;
+            private String privacy_status;
+            private String head_img_src;
+            private String integral;
+            private String status;
+            private String qq_num;
+            private String wechat_num;
+            private String address;
 
-            public int getId() {
-                return id;
+            public String getUid() {
+                return uid;
             }
 
-            public void setId(int id) {
-                this.id = id;
+            public void setUid(String uid) {
+                this.uid = uid;
             }
 
-            public String getName() {
-                return name;
+            public String getUsername() {
+                return username;
             }
 
-            public void setName(String name) {
-                this.name = name;
+            public void setUsername(String username) {
+                this.username = username;
             }
 
-            public String getAvatar() {
-                return avatar;
+            public String getPassword() {
+                return password;
             }
 
-            public void setAvatar(String avatar) {
-                this.avatar = avatar;
-            }
-        }
-
-        public static class FromBean {
-            /**
-             * id : 0
-             * name :
-             * avatar :
-             */
-
-            private int id;
-            private String name;
-            private String avatar;
-
-            public int getId() {
-                return id;
+            public void setPassword(String password) {
+                this.password = password;
             }
 
-            public void setId(int id) {
-                this.id = id;
+            public String getPhone() {
+                return phone;
             }
 
-            public String getName() {
-                return name;
+            public void setPhone(String phone) {
+                this.phone = phone;
             }
 
-            public void setName(String name) {
-                this.name = name;
+            public String getInterest() {
+                return interest;
             }
 
-            public String getAvatar() {
-                return avatar;
+            public void setInterest(String interest) {
+                this.interest = interest;
             }
 
-            public void setAvatar(String avatar) {
-                this.avatar = avatar;
+            public String getRegist_time() {
+                return regist_time;
+            }
+
+            public void setRegist_time(String regist_time) {
+                this.regist_time = regist_time;
+            }
+
+            public String getPs_note() {
+                return ps_note;
+            }
+
+            public void setPs_note(String ps_note) {
+                this.ps_note = ps_note;
+            }
+
+            public String getPrivacy_status() {
+                return privacy_status;
+            }
+
+            public void setPrivacy_status(String privacy_status) {
+                this.privacy_status = privacy_status;
+            }
+
+            public String getHead_img_src() {
+                return head_img_src;
+            }
+
+            public void setHead_img_src(String head_img_src) {
+                this.head_img_src = head_img_src;
+            }
+
+            public String getIntegral() {
+                return integral;
+            }
+
+            public void setIntegral(String integral) {
+                this.integral = integral;
+            }
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
+            }
+
+            public String getQq_num() {
+                return qq_num;
+            }
+
+            public void setQq_num(String qq_num) {
+                this.qq_num = qq_num;
+            }
+
+            public String getWechat_num() {
+                return wechat_num;
+            }
+
+            public void setWechat_num(String wechat_num) {
+                this.wechat_num = wechat_num;
+            }
+
+            public String getAddress() {
+                return address;
+            }
+
+            public void setAddress(String address) {
+                this.address = address;
             }
         }
     }

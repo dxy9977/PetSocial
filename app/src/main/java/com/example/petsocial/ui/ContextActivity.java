@@ -23,6 +23,7 @@ import com.example.petsocial.common.NetWorkManager;
 import com.example.petsocial.entity.AccountEntity;
 import com.example.petsocial.entity.CommentEntity;
 import com.example.petsocial.entity.ContextAdapter;
+import com.example.petsocial.entity.DataEntity;
 import com.example.petsocial.entity.FirstEntity;
 import com.example.petsocial.entity.NewsEntity;
 import com.example.petsocial.util.base.BaseActivity;
@@ -58,10 +59,10 @@ public class ContextActivity extends BaseActivity implements View.OnClickListene
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private View headView,footView;
+    private View headView, footView;
     private ContextAdapter adapter;
     private List<CommentEntity.DataBean> data;
-    private NewsEntity body;
+    private DataEntity.DataBean.ItemsBean body;
 
     private ImageView iconImg, img1, img2, img3, img4;
     private TextView type, time, name, addComment;
@@ -77,26 +78,22 @@ public class ContextActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void initView() {
         ImmersionBar.with(this).init();
-
+        //初始化适配器
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         HashMap<String, Integer> stringIntegerHashMap = new HashMap<>();
         stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.BOTTOM_DECORATION, 20);//底部间距
         recyclerView.addItemDecoration(new RecyclerViewSpacesItemDecoration(stringIntegerHashMap));
         adapter = new ContextAdapter(data);
+        //设置头尾布局
         headView = getLayoutInflater().inflate(R.layout.head_context, recyclerView, false);
         footView = getLayoutInflater().inflate(R.layout.foot_context, recyclerView, false);
         adapter.setHeaderView(headView);
         adapter.setFooterView(footView);
         recyclerView.setAdapter(adapter);
+        //初始控件
+        body = (DataEntity.DataBean.ItemsBean) getIntent().getSerializableExtra("data");
 
-        body = (NewsEntity) getIntent().getSerializableExtra("data");
-        ((TextView) headView.findViewById(R.id.activity_context_context)).setText(body.getContext());
-
-        ((TextView) headView.findViewById(R.id.activity_context_tv_phone)).setText(body.getMobile());
-        ((TextView) headView.findViewById(R.id.activity_context_tv_qq)).setText(body.getQq());
-        ((TextView) headView.findViewById(R.id.activity_context_tv_wechat)).setText(body.getWechat());
-        ((TextView) headView.findViewById(R.id.activity_context_tv_addr)).setText(body.getLocation());
 
         iconImg = headView.findViewById(R.id.activity_context_icon);
         playerView = headView.findViewById(R.id.video_view);
@@ -117,36 +114,9 @@ public class ContextActivity extends BaseActivity implements View.OnClickListene
         img3.setOnClickListener(this);
         img4.setOnClickListener(this);
 
-
-        if (!TextUtils.isEmpty(body.getVideo())) {
-            playerView.setVisibility(View.VISIBLE);
-            SimpleExoPlayer player = new SimpleExoPlayer.Builder(this).build();
-            playerView.setPlayer(player);
-            playerView.setPlaybackPreparer(this);
-            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this,
-                    Util.getUserAgent(this, "yourApplicationName"));
-            MediaSource videoSource =
-                    new ProgressiveMediaSource.Factory(dataSourceFactory)
-                            .createMediaSource(Uri.parse(body.getVideo()));
-            player.prepare(videoSource);
-        }
-        //String string = TimeUtils.millis2String(TimeUtils.string2Millis(body.getCreateAt(), "yyyy-MM-dd'T'HH:mm:ss"), "yyyy-MM-dd HH:mm");
-        time.setText(body.getCreateAt());
-        type.setText(body.getFlag() == 1 ? "狗狗" : "猫咪");
-        List<String> images = body.getImages();
-        if (images != null && images.size() != 0) {
-            imgLiner.setVisibility(View.VISIBLE);
-            for (int i = 0; i < images.size(); i++) {
-                Glide.with(this)
-                        .load(images.get(i))
-                        .into(getImg(i));
-            }
-
-        } else {
-            imgLiner.setVisibility(View.GONE);
-        }
-
+        //加载评论信息
         loadData();
+        //显示用户动态基本信息
         loadInfo();
     }
 
@@ -166,14 +136,10 @@ public class ContextActivity extends BaseActivity implements View.OnClickListene
 
 
     public void loadData() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("newsId", body.getId());
-        RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
-        NetWorkManager.getServerApi().getComment(requestBody)
+        NetWorkManager.getServerApi().findByMid(body.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(body -> {
-                            //LogUtils.d("xixi", body.getData().size());
                             if (body.getData() == null) return;
                             adapter.replaceData(body.getData());
                             adapter.notifyDataSetChanged();
@@ -185,23 +151,33 @@ public class ContextActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void loadInfo() {
-        NetWorkManager.getServerApi().getInfo(body.getCreateId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(body -> {
-                            if (body.isSuccess()) {
-                                name.setText(body.getData().getName());
-                                Glide.with(this)
-                                        .load(body.getData().getAvatar())
-                                        .placeholder(R.drawable.my_icon)
-                                        .error(R.drawable.my_icon)
-                                        .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                                        .into(iconImg);
-                            }
-                        }, throwable ->
-                                ToastUtils.showShort(throwable.getMessage())
+        ((TextView) headView.findViewById(R.id.activity_context_context)).setText(body.getNote());
+        ((TextView) headView.findViewById(R.id.activity_context_name)).setText(body.getUser().getUsername());
+        //((TextView) headView.findViewById(R.id.activity_context_time)).setText(body.getUser().getUsername());
 
-                );
+/*      ((TextView) headView.findViewById(R.id.activity_context_tv_phone)).setText(body.getMobile());
+        ((TextView) headView.findViewById(R.id.activity_context_tv_qq)).setText(body.getQq());
+        ((TextView) headView.findViewById(R.id.activity_context_tv_wechat)).setText(body.getWechat());
+        ((TextView) headView.findViewById(R.id.activity_context_tv_addr)).setText(body.getLocation());*/
+        //头像
+        Glide.with(this)
+                .load(NetWorkManager.BASE_URL + body.getUser().getHead_img_src())
+                .placeholder(R.drawable.my_icon)
+                .error(R.drawable.my_icon)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .into(iconImg);
+
+        String img_src = body.getImg_src();
+        //有图片资源
+        if (!TextUtils.isEmpty(img_src)) {
+            String[] split = img_src.split("\\|");
+            for (int i = 0; i < split.length; i++) {
+                Glide.with(this).load(NetWorkManager.BASE_URL + split[i]).into(getImg(i));
+
+            }
+
+        } else {//无图片资源
+        }
     }
 
 
@@ -223,43 +199,19 @@ public class ContextActivity extends BaseActivity implements View.OnClickListene
                 });
                 break;
             case R.id.activity_context_icon:
-                Intent intent = new Intent(this, DataActivity.class);
-                intent.putExtra("id", body.getCreateId());
-                startActivity(intent);
+
                 break;
-
-
             case R.id.item_img1:
-                List<Object> images1 = new ArrayList<>(body.getImages());
-                if (images1 != null && images1.size() > 0) {
-                    new XPopup.Builder(this).asImageViewer((img1), 0, images1, (p1, p2) -> {
-                    }, new MyImageLoader())
-                            .show();
-                }
+
                 break;
             case R.id.item_img2:
-                List<Object> images2 = new ArrayList<>(body.getImages());
-                if (images2 != null && images2.size() > 1) {
-                    new XPopup.Builder(this).asImageViewer((img2), 1, images2, (p1, p2) -> {
-                    }, new MyImageLoader())
-                            .show();
-                }
+
                 break;
             case R.id.item_img3:
-                List<Object> images3 = new ArrayList<>(body.getImages());
-                if (images3 != null && images3.size() > 2) {
-                    new XPopup.Builder(this).asImageViewer((img3), 2, images3, (p1, p2) -> {
-                    }, new MyImageLoader())
-                            .show();
-                }
+
                 break;
             case R.id.item_img4:
-                List<Object> images4 = new ArrayList<>(body.getImages());
-                if (images4 != null && images4.size() > 3) {
-                    new XPopup.Builder(this).asImageViewer((img4), 3, images4, (p1, p2) -> {
-                    }, new MyImageLoader())
-                            .show();
-                }
+
                 break;
             case R.id.item_img:
 
@@ -268,16 +220,22 @@ public class ContextActivity extends BaseActivity implements View.OnClickListene
     }
 
 
+    /**
+     * 添加评论
+     *
+     * @param ss
+     */
     public void addComment(String ss) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("conetext", ss);
-        map.put("newsId", body.getId());
+        map.put("note", ss);
+        map.put("moments_id", body.getId());
         RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
         NetWorkManager.getServerApi().addComment(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(body -> {
                             loadData();
+                            LogUtils.d("dxy", body.string());
                         }, throwable ->
                         {
                             ToastUtils.showShort(throwable.getMessage());

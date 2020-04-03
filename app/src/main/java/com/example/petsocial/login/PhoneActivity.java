@@ -19,6 +19,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.example.petsocial.R;
 import com.example.petsocial.mvp.contract.PhoneContract;
 import com.example.petsocial.mvp.presenter.PhonePresenter;
+import com.example.petsocial.ui.MainShowActivity;
 import com.example.petsocial.ui.SelectActivity;
 import com.example.petsocial.util.base.BaseMvpActivity;
 import com.gyf.immersionbar.ImmersionBar;
@@ -84,6 +85,12 @@ public class PhoneActivity extends BaseMvpActivity<PhonePresenter> implements Ph
     @Override
     public String getCode() {
         return phoneCode.getText().toString().trim();
+    }
+
+    @Override
+    public void onSuceess(boolean a) {
+        startActivity(new Intent(this, MainShowActivity.class));
+        finish();
     }
 
     @Override

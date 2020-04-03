@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.LogUtils;
 import com.example.petsocial.R;
 import com.example.petsocial.adapter.MessageAdapter;
+import com.example.petsocial.entity.DataEntity;
 import com.example.petsocial.entity.NewsEntity;
 import com.example.petsocial.mvp.contract.MessageContract;
 import com.example.petsocial.mvp.presenter.MessagePresenter;
@@ -49,7 +50,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     TextView topText3;
 
     private MessageAdapter adapter;
-    private List<NewsEntity> data;
+    private List<DataEntity.DataBean.ItemsBean> data;
 
     public MessageFragment() {
         // Required empty public constructor
@@ -72,29 +73,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
 
         adapter.setOnItemChildClickListener((a, v, p) -> {
 
-            /*if (v.getId() == R.id.item_message_icon) {
-                new XPopup.Builder(getContext())
-                        .asImageViewer(((ImageView) v), R.drawable.my_icon, new MyImageLoader())
-                        .show();
-                return;
-            }*/
-            //LogUtils.d("dxy positon = ", p, "dxy" + v.getTag(), "dxy = ");
-            if (MediaFileUtil.isVideoFileType(adapter.getItem(p).getVideo())) {
-                Intent intent = new Intent(getContext(), VideoActivity.class);
-                intent.putExtra("data", adapter.getItem(p).getVideo());
-                startActivity(intent);
-                return;
-            }
 
-            List<Object> list = new ArrayList<>();
-            List<String> images = adapter.getData().get(p).getImages();
-            if (images == null || ((int) v.getTag()) >= images.size()) return;
-            list.addAll(images);
-            new XPopup.Builder(getContext()).asImageViewer(((ImageView) v), ((int) v.getTag()), list, (p1, p2) -> {
-                //p1.updateSrcView(((ImageView) adapter.getViewByPosition(p, getId(p2))));
-                //adapter.getViewByPosition(p, getId(p2));
-            }, new MyImageLoader())
-                    .show();
 
         });
 
@@ -129,7 +108,7 @@ public class MessageFragment extends BaseMvpFragment<MessagePresenter> implement
     }
 
     @Override
-    public void success(List<NewsEntity> body) {
+    public void success(List<DataEntity.DataBean.ItemsBean> body) {
         adapter.addData(body);
         adapter.notifyDataSetChanged();
     }

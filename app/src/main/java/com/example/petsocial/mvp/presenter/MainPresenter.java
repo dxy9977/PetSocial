@@ -1,16 +1,13 @@
 package com.example.petsocial.mvp.presenter;
 
 
-import android.content.Intent;
-import android.text.TextUtils;
-import android.util.Log;
-
-
+import com.blankj.utilcode.util.CacheDiskUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.example.petsocial.common.MyApp;
 import com.example.petsocial.common.NetWorkManager;
 import com.example.petsocial.mvp.contract.MainContract;
-import com.example.petsocial.ui.SelectActivity;
 import com.example.petsocial.util.base.BasePresenter;
 
 import org.json.JSONObject;
@@ -34,29 +31,22 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
         map.put("phone", mView.getName());
         map.put("password", mView.getPsd());
         RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
-
+        LogUtils.d("dxy", "11222333");
         NetWorkManager.getServerApi().login1(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(body -> {
-                            /*if (body.isSuccess()) {
-                                mView.success();
-                                NetWorkManager.basic = body.getData().getToken();
+                            if (body.isSuccess()) {
+                                NetWorkManager.basic = body.getMessage();
                                 LogUtils.d("dxy", NetWorkManager.basic);
                                 NetWorkManager.getInstance().init();
-                            } else {
-                                mView.showMessage(body.getMessage());
-                            }*/
-                            JSONObject jb = new JSONObject(body.string());
-                            boolean success = jb.getBoolean("success");
-                            if (success){
+                                SPUtils.getInstance("user").put("login", true);
+                                CacheDiskUtils.getInstance().put("test", body);
+                                MyApp.getApp().setBody(body);
                                 mView.success();
-                                NetWorkManager.basic = jb.getString("data");
-                                LogUtils.d("dxy", NetWorkManager.basic);
-                                NetWorkManager.getInstance().init();
+                            }else {
+                                ToastUtils.showShort(body.getMessage());
                             }
-
-
                             mView.hideLoading();
                         }, throwable ->
                         {

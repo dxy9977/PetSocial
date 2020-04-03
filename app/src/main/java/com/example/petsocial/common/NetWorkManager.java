@@ -8,7 +8,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetWorkManager {
-    public static String BASE_URL = "http://47.99.60.167:8080/";
+    public static String BASE_URL = "http://47.99.60.167:11002/api/";//测试服务器
+    //public static String BASE_URL = "http://192.168.3.53:8080/";//本地
     public static String basic = "OFAKFX2aGYMk1jqNn7hMg5mqXUF0sQWuqa_E8gLUudc";
     private static NetWorkManager mInstance;
     private static Retrofit retrofit;
@@ -34,12 +35,12 @@ public class NetWorkManager {
     public void init() {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor((chain) -> {
             Request request = chain.request().newBuilder()
-                    //.addHeader("api-key", "myBblGC5xliTlK01a7C7bDT4fig=")
-                    //.addHeader("Content-Type", "application/json")
+                    .addHeader("token", basic)
+                    .addHeader("Content-Type", "application/json")
                     .build();
             return chain.proceed(request);
         }).authenticator((route, response) -> {
-            return response.request().newBuilder().header("Authorization", basic).build();
+            return response.request().newBuilder().header("token", basic).build();
         }).build();
 
 

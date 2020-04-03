@@ -1,13 +1,12 @@
 package com.example.petsocial.ui;
 
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.petsocial.R;
 import com.example.petsocial.common.NetWorkManager;
@@ -41,7 +40,6 @@ public class SelectActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        //String credential = Credentials.basic("jesse", "password1");
         ck1.setOnCheckedChangeListener((button, b) -> {
             choice1 = b;
             if (!choice1 && !choice2) {
@@ -74,19 +72,17 @@ public class SelectActivity extends BaseActivity {
     public void loadData() {
         showDialog();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("flag", getType());
+        map.put("username", "fhj");
+        map.put("interest", getType());
+        map.put("Privacy_status", 1);
+
         RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
 
-        NetWorkManager.getServerApi().modifyAccount(requestBody)
+        NetWorkManager.getServerApi().updateUserFirst(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(body -> {
-                            if (body.isSuccess()) {
-                                startActivity(new Intent(this, MainShowActivity.class));
-                                finish();
-                            } else {
-                                ToastUtils.showShort(body.getMessage());
-                            }
+                            LogUtils.d("dxy", body.string());
                             closeDialog();
                         }, throwable ->
                         {

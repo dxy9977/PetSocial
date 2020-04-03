@@ -3,6 +3,7 @@ package com.example.petsocial.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +18,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.petsocial.R;
+import com.example.petsocial.common.MyApp;
+import com.example.petsocial.common.NetWorkManager;
 import com.example.petsocial.entity.DataEntity;
+import com.example.petsocial.entity.LoginEntity;
 import com.example.petsocial.entity.UserInfoEntity;
 import com.example.petsocial.login.MainActivity;
 import com.example.petsocial.mvp.contract.CustomContract;
@@ -68,7 +72,7 @@ public class CustomerFragment extends BaseMvpFragment<CustomPresenter> implement
     TextView customMyaccount;
 
 
-    private UserInfoEntity bb;
+    private LoginEntity body;
 
     public CustomerFragment() {
         // Required empty public constructor
@@ -78,8 +82,24 @@ public class CustomerFragment extends BaseMvpFragment<CustomPresenter> implement
     protected void initView(View view) {
         mPresenter = new CustomPresenter();
         mPresenter.attachView(this);
-        mPresenter.loadInfo();
-        mPresenter.loadData();
+        //mPresenter.loadInfo();
+        //mPresenter.loadData();
+        init();
+    }
+
+    private void init() {
+        body = MyApp.getApp().getBody();
+        LogUtils.d("dxy", body.getData().getUsername());
+        customName.setText(body.getData().getUsername());
+        customMyaccount.setText(body.getData().getPhone());
+
+        String head_img_src = MyApp.getApp().getBody().getData().getHead_img_src();
+        Glide.with(this)
+                .load(NetWorkManager.BASE_URL + head_img_src)
+                .placeholder(R.drawable.my_icon)
+                .error(R.drawable.my_icon)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                .into(customIcon);
     }
 
     @Override
@@ -112,7 +132,6 @@ public class CustomerFragment extends BaseMvpFragment<CustomPresenter> implement
                 .error(R.drawable.my_icon)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(customIcon);
-        bb = body;
     }
 
     @Override
@@ -122,9 +141,9 @@ public class CustomerFragment extends BaseMvpFragment<CustomPresenter> implement
 
     @Override
     public void onData(DataEntity body) {
-        textGuangzhu.setText(body.getWatch() + "");
+        /*textGuangzhu.setText(body.getWatch() + "");
         textBeiguangzhu.setText(body.getFans() + "");
-        textDongtai.setText(body.getNews() == null ? "0" : body.getNews().size() + "");
+        textDongtai.setText(body.getNews() == null ? "0" : body.getNews().size() + "");*/
     }
 
     @OnClick({R.id.custom_name, R.id.custom_icon, R.id.custom_guangzhu, R.id.custom_beiguangzhu, R.id.custom_dongtai, R.id.custom_home, R.id.custom_account, R.id.custom_set, R.id.custom_push, R.id.custom_exit})
@@ -142,9 +161,9 @@ public class CustomerFragment extends BaseMvpFragment<CustomPresenter> implement
             case R.id.custom_name:
                 new XPopup.Builder(getContext()).asInputConfirm("修改名称", "请输入内容",
                         (t) -> {
-                            mPresenter.setInfo("name", t);
+                            mPresenter.setInfo("username", t);
                             customName.setText(t);
-                            bb.getData().setName(t);
+                            //bb.getData().setName(t);
                         })
                         .show();
                 break;
@@ -177,10 +196,12 @@ public class CustomerFragment extends BaseMvpFragment<CustomPresenter> implement
     }
 
     private void imgSetting(int p) {
+        
         switch (p) {
             case 0:
+                String head_img_src = MyApp.getApp().getBody().getData().getHead_img_src();
                 new XPopup.Builder(getContext())
-                        .asImageViewer(customIcon, bb == null ? "" : bb.getData().getAvatar(), new ImageLoader())
+                        .asImageViewer(customIcon, TextUtils.isEmpty(head_img_src) ? R.drawable.my_icon : NetWorkManager.BASE_URL + head_img_src, new ImageLoader())
                         .show();
                 break;
             case 1:
@@ -242,7 +263,7 @@ public class CustomerFragment extends BaseMvpFragment<CustomPresenter> implement
             String compressPath = localMedia.get(0).getCompressPath();
             mPresenter.setImg(compressPath);
             Glide.with(this).load(compressPath).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(customIcon);
-            bb.getData().setAvatar(compressPath);
+
         }
 
     }

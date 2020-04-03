@@ -43,10 +43,11 @@
         android:layout_marginLeft="@dimen/dp_5"
         android:layout_toRightOf="@id/activity_data_name"
         android:src="@drawable/man"
-
+        android:visibility="gone"
         />
 
     <ImageView
+        android:visibility="invisible"
         android:id="@+id/acticity_data_care"
         android:layout_width="@dimen/dp_27"
         android:layout_height="@dimen/dp_23"
@@ -56,6 +57,7 @@
         android:src="@drawable/love" />
 
     <TextView
+        android:visibility="invisible"
         android:layout_width="@dimen/dp_27"
         android:layout_height="wrap_content"
         android:layout_below="@+id/acticity_data_care"
@@ -120,7 +122,7 @@
         android:layout_alignTop="@id/activity_data_qian"
         android:layout_marginLeft="@dimen/dp_12"
         android:layout_toRightOf="@id/activity_data_vip"
-        android:text="有多少能熬过年少轻狂，知道地老天荒"
+        android:text=""
         android:textColor="#333"
         android:textSize="@dimen/sp_12" />
 

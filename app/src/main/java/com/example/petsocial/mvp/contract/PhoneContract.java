@@ -21,6 +21,8 @@ public interface PhoneContract {
 
         String getCode();
 
+        void onSuceess(boolean a);
+
     }
 
     interface Presenter {

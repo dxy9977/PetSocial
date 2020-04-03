@@ -1,23 +1,32 @@
 package com.example.petsocial.fragment;
 
 
+import android.view.View;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
-
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.example.petsocial.R;
 import com.example.petsocial.adapter.FriendAdapter;
+import com.example.petsocial.common.NetWorkManager;
 import com.example.petsocial.util.base.BaseFragment;
 import com.example.petsocial.util.view.RecyclerViewSpacesItemDecoration;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,8 +52,8 @@ public class FriendFragment extends BaseFragment {
 
         adapter = new FriendAdapter();
         recyclerView.setAdapter(adapter);
-        getData();
 
+        loadFriend();
         //new IndexControl(recyclerView,)
     }
 
@@ -53,13 +62,39 @@ public class FriendFragment extends BaseFragment {
         return R.layout.fragment_friend;
     }
 
-    public void getData() {
-        for (int i = 0; i <= 100; i++) {
-            list.add("李" + i + "蛋");
-        }
-        ToastUtils.showShort(list.size());
-        adapter.addData(list);
-        adapter.notifyDataSetChanged();
+
+    private void loadFriend() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("currentPage", 1);
+        map.put("pageSize", 10);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
+
+        NetWorkManager.getServerApi().getFriendList(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(body -> {
+                            LogUtils.d("dxy");
+                            if (body.isSuccess()) {
+                                adapter.addData(body.getData().getItems());
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                //ToastUtils.showShort(jb.getString("message"));
+                            }
+                        }, throwable ->
+                        {
+                            LogUtils.d("dxy", throwable.getMessage());
+                            ToastUtils.showShort(throwable.getMessage());
+                        }
+                );
     }
 
+    @OnClick({R.id.fragment_firend_add, R.id.fragment_firend_new})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.fragment_firend_add:
+                break;
+            case R.id.fragment_firend_new:
+                break;
+        }
+    }
 }

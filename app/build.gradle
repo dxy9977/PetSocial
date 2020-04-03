@@ -63,7 +63,7 @@ dependencies {
     //图片显示
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     //Adapter
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
     //异常追踪
     implementation 'com.tencent.bugly:crashreport:latest.release'
     //
@@ -74,7 +74,7 @@ dependencies {
     //图片显示
     implementation 'com.github.wanglu1209:PhotoViewer:0.50'
     //选择图片
-    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.3.9'
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.1'
 
 
     implementation 'com.google.android.exoplayer:exoplayer:2.11.0'

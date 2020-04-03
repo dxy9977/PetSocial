@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.petsocial.R;
 import com.example.petsocial.adapter.FirstListAdapter;
+import com.example.petsocial.common.NetWorkManager;
+import com.example.petsocial.entity.DataEntity;
 import com.example.petsocial.entity.FirstEntity;
 import com.example.petsocial.entity.MainEntity;
 import com.example.petsocial.entity.NewsEntity;
@@ -70,7 +74,7 @@ public class FirstFragment extends BaseMvpFragment<FirstPresenter> implements Fi
 
     private View headView;
     private FirstListAdapter adapter;
-    private List<NewsEntity> data;
+    private List<DataEntity.DataBean.ItemsBean> data;
     private TextView mNotice;
     private List<String> notice = new ArrayList<>();
     private int postion = 0;
@@ -122,49 +126,59 @@ public class FirstFragment extends BaseMvpFragment<FirstPresenter> implements Fi
         adapter = new FirstListAdapter(data);
         adapter.setHeaderView(headView);
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemChildClickListener((a, v, p) -> {
 
-            /*if (v.getId() == R.id.item_first_icon) {
-                new XPopup.Builder(getContext())
-                        .asImageViewer(((ImageView) v), R.drawable.my_icon, new MyImageLoader())
-                        .show();
-                return;
-            }*/
-            //LogUtils.d("dxy positon = ", p, "dxy" + v.getTag(), "dxy = ");
-            if (MediaFileUtil.isVideoFileType(adapter.getItem(p).getVideo())) {
-                Intent intent = new Intent(getContext(), VideoActivity.class);
-                intent.putExtra("data", adapter.getItem(p).getVideo());
-                startActivity(intent);
+        adapter.addChildClickViewIds(R.id.item_img1, R.id.item_img2, R.id.item_img3, R.id.item_img4, R.id.item_first_icon, R.id.item_name);
+        adapter.setOnItemChildClickListener((a, v, p) -> {
+            LogUtils.d("dxy", "setOnItemChildClickListener");
+            if (v.getId() == R.id.item_first_icon) {
+                lookBigPic(v, adapter.getData().get(p).getUser().getHead_img_src());
                 return;
             }
-
-
-            List<Object> list = new ArrayList<>();
-            List<String> images = adapter.getData().get(p).getImages();
-            if (images == null || ((int) v.getTag()) >= images.size()) return;
-            list.addAll(images);
-            new XPopup.Builder(getContext()).asImageViewer(((ImageView) v), ((int) v.getTag()), list, (p1, p2) -> {
-                //p1.updateSrcView(((ImageView) adapter.getViewByPosition(p, getId(p2))));
-                //adapter.getViewByPosition(p, getId(p2));
-            }, new MyImageLoader())
-                    .show();
-
+            String img_src = adapter.getData().get(p).getImg_src();
+            if (TextUtils.isEmpty(img_src)) {
+                stratNext(p);
+                return;
+            }
+            String[] split = img_src.split("\\|");
+            switch (v.getId()) {
+                case R.id.item_img1:
+                    if (split.length > 0)
+                        lookBigPic(v, split[0]);
+                    else
+                        stratNext(p);
+                    break;
+                case R.id.item_img2:
+                    if (split.length > 1)
+                        lookBigPic(v, split[1]);
+                    else
+                        stratNext(p);
+                    break;
+                case R.id.item_img3:
+                    if (split.length > 2)
+                        lookBigPic(v, split[2]);
+                    else
+                        stratNext(p);
+                    break;
+                case R.id.item_img4:
+                    if (split.length > 3)
+                        lookBigPic(v, split[3]);
+                    else
+                        stratNext(p);
+                    break;
+            }
         });
 
-
         adapter.setOnItemClickListener((a, v, p) -> {
-            Intent intent = new Intent(getContext(), ContextActivity.class);
-            intent.putExtra("data", adapter.getData().get(p));
-            startActivity(intent);
+            stratNext(p);
         });
 
 
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
-        List<String> images = new ArrayList<>();
-        images.add("http://api.atatakai.cn/api/v1/public/file/1575943139609210399.jpg");
-        images.add("http://api.atatakai.cn/api/v1/public/file/1575943525647548495.png");
-        images.add("http://api.atatakai.cn/api/v1/public/file/1575943549093158118.png");
+        List<Object> images = new ArrayList<>();
+        images.add(R.drawable.time);
+        images.add(R.drawable.time);
+        images.add(R.drawable.time);
         banner.setImages(images);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
@@ -179,8 +193,22 @@ public class FirstFragment extends BaseMvpFragment<FirstPresenter> implements Fi
         }
 
         mPresenter.loadData();
-
     }
+
+
+    private void lookBigPic(View v, String s) {
+        new XPopup.Builder(getContext())
+                .asImageViewer((ImageView) v, NetWorkManager.BASE_URL + s, new MyImageLoader())
+                .show();
+    }
+
+    private void stratNext(int p) {
+        LogUtils.d("dxy", "setOnItemClickListener");
+        Intent intent = new Intent(getContext(), ContextActivity.class);
+        intent.putExtra("data", adapter.getData().get(p));
+        startActivity(intent);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -252,12 +280,11 @@ public class FirstFragment extends BaseMvpFragment<FirstPresenter> implements Fi
     }
 
     @Override
-    public void success(FirstEntity body) {
-        adapter.addData(body.getData().getNews());
+    public void success(List<DataEntity.DataBean.ItemsBean> body) {
+        adapter.addData(body);
         adapter.notifyDataSetChanged();
-        notice.addAll(body.getData().getHorns());
-        banner.update(body.getData().getImages());
-        mHandler.sendEmptyMessage(0);
+
+        //mHandler.sendEmptyMessage(0);
     }
 
 }

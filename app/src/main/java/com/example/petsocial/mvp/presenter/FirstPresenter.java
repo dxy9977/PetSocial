@@ -7,11 +7,16 @@ import com.example.petsocial.mvp.contract.FirstContract;
 import com.example.petsocial.mvp.contract.TestContract;
 import com.example.petsocial.util.base.BasePresenter;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 public class FirstPresenter extends BasePresenter<FirstContract.View> implements FirstContract.Presenter {
 
@@ -20,11 +25,17 @@ public class FirstPresenter extends BasePresenter<FirstContract.View> implements
     }
 
     public void loadData() {
-        NetWorkManager.getServerApi().getMain()
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("currentPage", 1);
+        map.put("pageSize", 10);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
+        NetWorkManager.getServerApi().pullMomentSelf(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(body -> {
-                            mView.success(body);
+                            if (body.isSuccess()) {
+                                mView.success(body.getData().getItems());
+                            }
 
                         }, throwable ->
                         {

@@ -24,14 +24,15 @@ public class MessagePresenter extends BasePresenter<MessageContract.View> implem
 
     public void loadData() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("flag", 0);
+        map.put("currentPage", 1);
+        map.put("pageSize", 10);
         RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"), new JSONObject(map).toString());
-        NetWorkManager.getServerApi().getNews(requestBody)
+        NetWorkManager.getServerApi().pullMomentSelf(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(body -> {
                             if (body.isSuccess()) {
-                                mView.success(body.getData());
+                                mView.success(body.getData().getItems());
                             }
                         }, throwable ->
                         {

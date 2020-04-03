@@ -1,5 +1,6 @@
 package com.example.petsocial.login;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.example.petsocial.R;
 import com.example.petsocial.mvp.contract.RegisterContract;
 import com.example.petsocial.mvp.presenter.RegisterPresenter;
+import com.example.petsocial.ui.SelectActivity;
 import com.example.petsocial.util.base.BaseMvpActivity;
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -71,6 +73,12 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     @Override
     public void showMessage(String meg) {
 
+    }
+
+    @Override
+    public void onSucess() {
+        startActivity(new Intent(this, SelectActivity.class));
+        finish();
     }
 
     @Override
